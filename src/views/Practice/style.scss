@@ -1,0 +1,24 @@
+.practice-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+    button, input {
+        margin: 5px;
+    }
+
+    .result {
+        margin: 30px;
+        font-weight: bold;
+        font-size: 3em;
+
+        &-wrong {
+            color: red;
+        }
+        &-correct {
+            color: green;
+        }
+    }
+}
