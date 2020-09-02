@@ -5,6 +5,7 @@
       v-model="value"
       @keypress="isNumber($event)"
       :placeholder="placeholder"
+      :spellcheck="spellcheck"
       @change="onChange"
       @input="onInput"
     />
@@ -12,6 +13,7 @@
       v-else
       v-model="value"
       :placeholder="placeholder"
+      :spellcheck="spellcheck"
       @change="onChange"
       @input="onInput"
     />
@@ -45,6 +47,10 @@ export default {
     placeholder: {
       type: String,
       default: ""
+    },
+    spellcheck: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
