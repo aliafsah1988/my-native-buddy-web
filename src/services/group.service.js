@@ -20,14 +20,15 @@ const GroupService = {
    * @returns a boolean
    * @throws GroupError
    **/
-  add: async function(name, description) {
+  add: async function(name, description, langId) {
     try {
       const requestData = {
         method: "post",
         url: `/group`,
         data: {
           name,
-          description
+          description,
+          langId
         }
       };
       const response = await ApiService.customRequest(requestData);
@@ -42,7 +43,7 @@ const GroupService = {
    * @returns a boolean
    * @throws GroupError
    **/
-  update: async function(groupId, name, description) {
+  update: async function(groupId, name, description, langId) {
     try {
       const requestData = {
         method: "put",
@@ -52,7 +53,8 @@ const GroupService = {
         },
         data: {
           name,
-          description
+          description,
+          langId
         }
       };
       const response = await ApiService.customRequest(requestData);

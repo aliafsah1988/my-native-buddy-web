@@ -5,9 +5,9 @@ import word from "./modules/word";
 import group from "./modules/group";
 import wordList from "./modules/wordList";
 import groupList from "./modules/groupList";
-
+import lang from "./modules/lang";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: { practice, word, wordList, groupList, group }
+  modules: { practice, word, wordList, groupList, group, lang }
 });

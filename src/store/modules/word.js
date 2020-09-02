@@ -44,7 +44,8 @@ const actions = {
           state.word.description,
           state.word.synonyms,
           state.word.translation,
-          state.word.groupId
+          state.word.groupId,
+          state.word.langId
         );
       } else {
         result = await WordService.update(
@@ -53,7 +54,8 @@ const actions = {
           state.word.description,
           state.word.synonyms,
           state.word.translation,
-          state.word.groupId
+          state.word.groupId,
+          state.word.langId
         );
       }
       return result;

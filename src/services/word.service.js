@@ -20,7 +20,14 @@ const WordService = {
    * @returns a boolean
    * @throws WordError
    **/
-  add: async function(text, description, synonyms, translation, groupId) {
+  add: async function(
+    text,
+    description,
+    synonyms,
+    translation,
+    groupId,
+    langId
+  ) {
     try {
       const requestData = {
         method: "post",
@@ -30,7 +37,8 @@ const WordService = {
           description,
           synonyms,
           translation,
-          groupId
+          groupId,
+          langId
         }
       };
       const response = await ApiService.customRequest(requestData);
@@ -51,7 +59,8 @@ const WordService = {
     description,
     synonyms,
     translation,
-    groupId
+    groupId,
+    langId
   ) {
     try {
       const requestData = {
@@ -65,7 +74,8 @@ const WordService = {
           description,
           synonyms,
           translation,
-          groupId
+          groupId,
+          langId
         }
       };
       const response = await ApiService.customRequest(requestData);

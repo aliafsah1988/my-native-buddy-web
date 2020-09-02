@@ -34,13 +34,23 @@
       />
     </Field>
 
+    <Field :label="'Language'">
+      <Select
+        :placeholder="'Choose a Language ...'"
+        :value="selectedLang"
+        :options="langOptions"
+        :showClose="true"
+        @select="onSelectLang"
+      />
+    </Field>
+
     <Field :label="'Group'">
       <Select
         :placeholder="'Choose a Group ...'"
         :value="selectedGroup"
-        :options="options"
+        :options="groupOptions"
         :showClose="true"
-        @select="onSelect"
+        @select="onSelectGroup"
       />
     </Field>
   </div>
@@ -85,6 +95,7 @@ export default {
   },
   mounted() {
     this.getMyGroups();
+    this.getLangs();
   },
   data() {
     return {
@@ -93,14 +104,19 @@ export default {
       synonyms: this.word !== undefined ? this.word.synonyms : "",
       translation: this.word !== undefined ? this.word.translation : "",
       groupId: this.word !== undefined ? this.word.groupId : "",
+      langId: this.word !== undefined ? this.word.langId : "",
       group: null,
+      lang: "",
       selectedGroup: "",
-      options: [],
+      selectedLang: "",
+      langOptions: [],
+      groupOptions: [],
       buttonType
     };
   },
   computed: {
     ...mapState("groupList", ["groups"]),
+    ...mapState("lang", ["langs"]),
     inputStyle: function() {
       return { "pointer-events": this.type === "show" ? "none" : "auto" };
     },
@@ -111,8 +127,12 @@ export default {
   methods: {
     ...mapActions("groupList", ["getMyGroups"]),
     ...mapActions("group", ["getGroupById"]),
+    ...mapActions("lang", ["getLangs", "getLangById"]),
     play() {
-      pronunciationService.play(this.text);
+      pronunciationService.play({
+        text: this.text,
+        langId: this.langId
+      });
     },
     onSpellingChange(text) {
       this.text = text;
@@ -126,16 +146,28 @@ export default {
     onTranslationChange(translation) {
       this.translation = translation;
     },
-    onSelect(option) {
+    onSelectGroup(option) {
       this.group = option;
       this.selectedGroup = option.label;
       this.groupId = option.value;
+    },
+    onSelectLang(option) {
+      this.lang = option;
+      this.selectedLang = option.label;
+      this.langId = option.value;
     },
     async getGroup(groupId) {
       const group = await this.getGroupById(groupId);
       if (group) {
         this.selectedGroup = group.name;
         this.groupId = group._id;
+      }
+    },
+    async getLang(langId) {
+      const lang = await this.getLangById(langId);
+      if (lang) {
+        this.selectedLang = lang.name;
+        this.langId = lang._id;
       }
     }
   },
@@ -147,6 +179,7 @@ export default {
         this.synonyms = val.synonyms;
         this.translation = val.translation;
         this.getGroup(val.groupId);
+        this.getLang(val.langId);
       }
     },
     text: function(val) {
@@ -155,7 +188,8 @@ export default {
         description: this.description,
         synonyms: this.synonyms,
         translation: this.translation,
-        groupId: this.groupId
+        groupId: this.groupId,
+        langId: this.langId
       });
     },
     description: function(val) {
@@ -164,7 +198,8 @@ export default {
         description: val,
         synonyms: this.synonyms,
         translation: this.translation,
-        groupId: this.groupId
+        groupId: this.groupId,
+        langId: this.langId
       });
     },
     synonyms: function(val) {
@@ -173,7 +208,8 @@ export default {
         description: this.description,
         synonyms: val,
         translation: this.translation,
-        groupId: this.groupId
+        groupId: this.groupId,
+        langId: this.langId
       });
     },
     translation: function(val) {
@@ -182,7 +218,8 @@ export default {
         description: this.description,
         synonyms: this.synonyms,
         translation: val,
-        groupId: this.groupId
+        groupId: this.groupId,
+        langId: this.langId
       });
     },
     groupId: function(val) {
@@ -191,15 +228,35 @@ export default {
         description: this.description,
         synonyms: this.synonyms,
         translation: this.translation,
-        groupId: val
+        groupId: val,
+        langId: this.langId
+      });
+    },
+    langId: function(val) {
+      this.$emit("change", {
+        text: this.text,
+        description: this.description,
+        synonyms: this.synonyms,
+        translation: this.translation,
+        groupId: this.groupId,
+        langId: val
       });
     },
     groups: function(val) {
       if (!val || val.length < 0) return [];
-      this.options = val.map(group => {
+      this.groupOptions = val.map(group => {
         return {
           value: group._id,
           label: group.name
+        };
+      });
+    },
+    langs: function(val) {
+      if (!val || val.length < 0) return [];
+      this.langOptions = val.map(lang => {
+        return {
+          value: lang._id,
+          label: lang.name
         };
       });
     }

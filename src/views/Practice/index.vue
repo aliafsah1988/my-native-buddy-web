@@ -42,7 +42,7 @@ export default {
   methods: {
     ...mapActions("practice", ["getToday", "checkWord", "next"]),
     play() {
-      pronunciationService.play(this.words[0].text);
+      pronunciationService.play(this.words[0]);
     },
     check() {
       this.checkWord({ wordId: this.words[0]._id, text: this.text });

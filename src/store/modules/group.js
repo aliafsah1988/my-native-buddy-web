@@ -41,13 +41,15 @@ const actions = {
       if (state.actionType === "add") {
         result = await GroupService.add(
           state.group.name,
-          state.group.description
+          state.group.description,
+          state.group.langId
         );
       } else {
         result = await GroupService.update(
           state.editGroup._id,
           state.group.name,
-          state.group.description
+          state.group.description,
+          state.group.langId
         );
       }
       return result;
