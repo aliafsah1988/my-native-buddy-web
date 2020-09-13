@@ -88,7 +88,7 @@ export default {
         };
       }
     },
-    type: {
+    wordType: {
       type: String,
       default: "show"
     }
@@ -118,10 +118,12 @@ export default {
     ...mapState("groupList", ["groups"]),
     ...mapState("lang", ["langs"]),
     inputStyle: function() {
-      return { "pointer-events": this.type === "show" ? "none" : "auto" };
+      return {
+        "pointer-events": this.wordType === "show" ? "none" : "auto"
+      };
     },
     textError: function() {
-      return this.text.length === 0 ? "*Required" : "";
+      return this.text && this.text.length === 0 ? "*Required" : "";
     }
   },
   methods: {

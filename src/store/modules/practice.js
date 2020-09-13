@@ -8,7 +8,7 @@ const state = {
   result: "",
   practiceErrorCode: null,
   practiceError: "",
-  wordToShow: "",
+  wordToShow: {},
   hasNext: undefined
 };
 

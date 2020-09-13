@@ -5,7 +5,7 @@
     <button @click="check">Check</button>
     <button v-if="hasNext && wordToShow" @click="goNext">Next</button>
     <div class="result" v-if="wordToShow" :class="resultType">{{ result }}</div>
-    <Word v-if="wordToShow" :word="wordToShow" :type="'show'" />
+    <Word v-show="wordToShow" :word="wordToShow" :type="'show'" />
   </div>
 </template>
 
@@ -21,7 +21,8 @@ export default {
   data() {
     return {
       enablePlay: false,
-      text: ""
+      text: "",
+      textToShow: ""
     };
   },
   mounted() {
@@ -55,6 +56,9 @@ export default {
   watch: {
     words(words) {
       this.enablePlay = words && words.length > 0;
+    },
+    wordToShow(value) {
+      this.textToShow = value.text;
     },
     hasNext(value) {
       if (value === false)
