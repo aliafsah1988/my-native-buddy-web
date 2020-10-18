@@ -5,7 +5,11 @@
     <button @click="check">Check</button>
     <button v-if="hasNext && wordToShow" @click="goNext">Next</button>
     <div class="result" v-if="wordToShow" :class="resultType">{{ result }}</div>
-    <Word v-show="wordToShow" :word="wordToShow" :type="'show'" />
+    <Word
+      v-show="wordToShow && wordToShow._id"
+      :word="wordToShow"
+      :type="'show'"
+    />
   </div>
 </template>
 
@@ -46,6 +50,15 @@ export default {
       pronunciationService.play(this.words[0]);
     },
     check() {
+      if (!this.words || !this.words[0] || !this.text || this.text.length < 1) {
+        this.$notify({
+          group: "warn",
+          title: "Empty text",
+          text: "Please write something to check.",
+          duration: "5000"
+        });
+        return;
+      }
       this.checkWord({ wordId: this.words[0]._id, text: this.text });
     },
     goNext() {
