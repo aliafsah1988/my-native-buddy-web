@@ -16,10 +16,5 @@ export default {
 </script>
 
 <style lang="scss">
-* {
-  margin: 0;
-  padding: 0;
-  font-family: "Noto Sans", Roboto, sans-serif;
-  font-size: 20px;
-}
+@import "./assets/sass/index.scss";
 </style>

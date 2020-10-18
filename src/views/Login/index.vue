@@ -1,11 +1,15 @@
 <template>
-  <div class="login-container">
-    <div></div>
-    <input v-model="email" />
-    <div></div>
-    <input v-model="password" />
-    <button @click="login">Login</button>
-    <router-link :to="{ name: 'Register' }">Register</router-link>
+  <div class="container">
+    <div class="login-container">
+      <div class="login-container__box">
+        <div></div>
+        <input v-model="email" />
+        <div></div>
+        <input v-model="password" />
+        <button @click="login">Login</button>
+        <router-link :to="{ name: 'Register' }">Register</router-link>
+      </div>
+    </div>
   </div>
 </template>
 
