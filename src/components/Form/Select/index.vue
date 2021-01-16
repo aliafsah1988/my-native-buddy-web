@@ -7,6 +7,7 @@
         :value="value"
         @click="onOpen"
         @blur="onBlur"
+        :disabled="disabled"
       />
       <div class="g-autocomplete__icon g-form-select__text--indicator medium">
         <i class="icon-search" />
@@ -62,6 +63,10 @@ export default {
     error: {
       type: String,
       default: ""
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   data() {

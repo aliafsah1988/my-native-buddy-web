@@ -18,6 +18,7 @@
         :options="langOptions"
         :showClose="true"
         @select="onSelectLang"
+        :disabled="disabled"
       />
     </Field>
 
@@ -55,6 +56,7 @@
         :options="groupOptions"
         :showClose="true"
         @select="onSelectGroup"
+        :disabled="disabled"
       />
     </Field>
   </div>
