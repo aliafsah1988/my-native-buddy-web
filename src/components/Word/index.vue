@@ -6,6 +6,7 @@
         @input="onSpellingChange"
         :error="textError"
         :initValue="text"
+        :disabled="disabled"
       />
       <Button @click="play" :text="'Play'" :theme="buttonType.BRAND_DARK" />
     </Field>
@@ -25,6 +26,7 @@
         :placeholder="'Description ...'"
         @input="onDescriptionChange"
         :initValue="description"
+        :disabled="disabled"
       />
     </Field>
 
@@ -33,6 +35,7 @@
         :placeholder="'Synonyms ...'"
         @input="onSynonymsChange"
         :initValue="synonyms"
+        :disabled="disabled"
       />
     </Field>
 
@@ -41,6 +44,7 @@
         :placeholder="'Translation ...'"
         @input="onTranslationChange"
         :initValue="translation"
+        :disabled="disabled"
       />
     </Field>
 
@@ -91,6 +95,10 @@ export default {
     wordType: {
       type: String,
       default: "show"
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   mounted() {

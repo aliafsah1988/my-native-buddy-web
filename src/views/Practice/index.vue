@@ -9,6 +9,7 @@
       v-show="wordToShow && wordToShow._id"
       :word="wordToShow"
       :type="'show'"
+      disabled
     />
   </div>
 </template>
