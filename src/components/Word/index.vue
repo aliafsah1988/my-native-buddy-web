@@ -10,6 +10,16 @@
       <Button @click="play" :text="'Play'" :theme="buttonType.BRAND_DARK" />
     </Field>
 
+    <Field :label="'Language'">
+      <Select
+        :placeholder="'Choose a Language ...'"
+        :value="selectedLang"
+        :options="langOptions"
+        :showClose="true"
+        @select="onSelectLang"
+      />
+    </Field>
+
     <Field :label="'Description'">
       <Input
         :placeholder="'Description ...'"
@@ -31,16 +41,6 @@
         :placeholder="'Translation ...'"
         @input="onTranslationChange"
         :initValue="translation"
-      />
-    </Field>
-
-    <Field :label="'Language'">
-      <Select
-        :placeholder="'Choose a Language ...'"
-        :value="selectedLang"
-        :options="langOptions"
-        :showClose="true"
-        @select="onSelectLang"
       />
     </Field>
 
