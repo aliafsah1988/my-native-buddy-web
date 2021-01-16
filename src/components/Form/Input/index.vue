@@ -16,6 +16,7 @@
       :spellcheck="spellcheck"
       @change="onChange"
       @input="onInput"
+      :disabled="disabled"
     />
     <span v-if="suffix" class="g-form-input__suffix">{{ suffix }}</span>
   </div>
@@ -51,6 +52,10 @@ export default {
     spellcheck: {
       type: Boolean,
       default: true
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
