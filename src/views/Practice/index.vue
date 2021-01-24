@@ -2,7 +2,7 @@
   <div class="practice-container">
     <button @click="play">Play</button>
     <input v-model="text" type="text" :spellcheck="false" />
-    <button @click="check">Check</button>
+    <button :disabled="!enableCheck" @click="check">Check</button>
     <button v-if="hasNext && wordToShow" @click="goNext">Next</button>
     <div class="result" v-if="wordToShow" :class="resultType">{{ result }}</div>
     <Word
@@ -43,6 +43,11 @@ export default {
         "result-correct": this.result && this.result === "correct",
         "result-wrong": this.result && this.result === "wrong"
       };
+    },
+    enableCheck: function() {
+      return this.wordToShow && this.wordToShow._id
+        ? false
+        : this.text.length > 0;
     }
   },
   methods: {
