@@ -1,7 +1,12 @@
 <template>
   <div class="practice-container">
     <button @click="play">Play</button>
-    <input v-model="text" type="text" :spellcheck="false" />
+    <input
+      v-model="text"
+      type="text"
+      :spellcheck="false"
+      @keyup.enter="check"
+    />
     <button :disabled="!enableCheck" @click="check">Check</button>
     <button v-if="hasNext && wordToShow" @click="goNext">Next</button>
     <div class="result" v-if="wordToShow" :class="resultType">{{ result }}</div>
