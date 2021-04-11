@@ -22,6 +22,26 @@
       />
     </Field>
 
+    <Field :label="'Group'">
+      <Select
+        :placeholder="'Choose a Group ...'"
+        :value="selectedGroup"
+        :options="groupOptions"
+        :showClose="true"
+        @select="onSelectGroup"
+        :disabled="disabled"
+      />
+    </Field>
+
+    <Field :label="'Translation'">
+      <Input
+        :placeholder="'Translation ...'"
+        @input="onTranslationChange"
+        :initValue="translation"
+        :disabled="disabled"
+      />
+    </Field>
+
     <Field :label="'Description'">
       <Input
         :placeholder="'Description ...'"
@@ -36,26 +56,6 @@
         :placeholder="'Synonyms ...'"
         @input="onSynonymsChange"
         :initValue="synonyms"
-        :disabled="disabled"
-      />
-    </Field>
-
-    <Field :label="'Translation'">
-      <Input
-        :placeholder="'Translation ...'"
-        @input="onTranslationChange"
-        :initValue="translation"
-        :disabled="disabled"
-      />
-    </Field>
-
-    <Field :label="'Group'">
-      <Select
-        :placeholder="'Choose a Group ...'"
-        :value="selectedGroup"
-        :options="groupOptions"
-        :showClose="true"
-        @select="onSelectGroup"
         :disabled="disabled"
       />
     </Field>
