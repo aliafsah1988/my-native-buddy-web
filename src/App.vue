@@ -8,7 +8,6 @@
 
 <script>
 import Header from "./components/Header";
-
 export default {
   name: "App",
   components: { Header }
@@ -17,4 +16,7 @@ export default {
 
 <style lang="scss">
 @import "./assets/sass/index.scss";
+#app {
+  // background-color: aqua;
+}
 </style>

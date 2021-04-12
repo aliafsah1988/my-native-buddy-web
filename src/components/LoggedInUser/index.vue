@@ -1,7 +1,7 @@
 <template>
   <div class="logged-in-user-container">
     <div>{{ email }}</div>
-    <button @click="logout">Logout</button>
+    <button class="logout-button" @click="logout">Logout</button>
   </div>
 </template>
 
