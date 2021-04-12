@@ -1,15 +1,49 @@
 .login-container {
-    // background-color: blueviolet;
-    display: flex;
+    display: grid;
+    // background-color:lightcoral ;
+    grid-template-columns: 1fr;
+    padding: 10px;
+    margin-top: 2%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 88.3vh;
     &__box {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+        background-color: white;
+        display: grid;
+        padding: 10px;
+        height: 50%;
+        justify-self: center;
         align-items: center;
-        margin: auto;
+        justify-items: center;
+        &__item {
+            width: 100%;
+        }
+        label {
+            display: block;
+            font: 1rem;
+            padding: 5px;
+            color: #5C5F58;
+        }
+        input {
+            padding: 10px;
+            background-color: #f0f3f4;
+            border-color: #DCE1E3;
+            width: 100%;
+        }
+        .login {
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+        }
+        button {
+            background-color: #004E7C;
+            padding: 10px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            color: white;
+            width: 80px;
+        }
     }
 }
