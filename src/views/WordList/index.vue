@@ -1,6 +1,6 @@
 <template>
   <div class="my-words-container">
-    <table>
+    <table id="table">
       <tr>
         <th>Word</th>
         <th>Description</th>
@@ -9,16 +9,19 @@
         <th>Actions</th>
       </tr>
       <tr v-for="word in words" :key="word._id">
-        <th>{{ word.text }}</th>
-        <th>{{ word.description }}</th>
-        <th>{{ word.synonyms }}</th>
-        <th>{{ word.translation }}</th>
-        <th>
+        <td>{{ word.text }}</td>
+        <td>{{ word.description }}</td>
+        <td>{{ word.synonyms }}</td>
+        <td>{{ word.translation }}</td>
+        <td>
           <router-link :to="{ name: 'EditWord', params: { id: word._id } }"
-            >Edit
+            ><img src="../../assets/image/edit.svg" />
           </router-link>
-          <Button @click="deleteWord(word._id)" :text="'Delete'" />
-        </th>
+          <img
+            src="../../assets/image/delete.png"
+            @click="deleteWord(word._id)"
+          />
+        </td>
       </tr>
     </table>
   </div>
