@@ -17,6 +17,5 @@ export default {
 <style lang="scss">
 @import "./assets/sass/index.scss";
 #app {
-  // background-color: aqua;
 }
 </style>

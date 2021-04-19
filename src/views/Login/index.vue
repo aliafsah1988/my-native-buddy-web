@@ -2,12 +2,22 @@
   <div class="container">
     <div class="login-container">
       <div class="login-container__box">
-        <div></div>
-        <input v-model="email" />
-        <div></div>
-        <input v-model="password" />
-        <button @click="login">Login</button>
-        <router-link :to="{ name: 'Register' }">Register</router-link>
+        <div class="login-container__box__item">
+          <label for="name">Username</label>
+          <input v-model="email" />
+        </div>
+        <div class="login-container__box__item">
+          <label for="name">Password</label>
+          <input v-model="password" />
+        </div>
+        <div class="login">
+          <button @click="login">Login</button>
+        </div>
+        <span>
+          If you don't have an account please
+          <router-link :to="{ name: 'Register' }">Register</router-link>
+          first.
+        </span>
       </div>
     </div>
   </div>
