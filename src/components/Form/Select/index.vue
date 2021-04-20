@@ -9,19 +9,6 @@
         @blur="onBlur"
         :disabled="disabled"
       />
-      <div class="g-autocomplete__icon g-form-select__text--indicator medium">
-        <i class="icon-search" />
-      </div>
-      <div class="g-autocomplete__icon g-form-select__text--loading medium">
-        <i class="icon-light  " />
-      </div>
-      <div
-        v-if="showClose && value"
-        class="g-autocomplete__icon g-form-select__text--close medium"
-        @click="onClose"
-      >
-        <i class="icon-close" />
-      </div>
     </div>
     <div v-if="showOptions" class="dropdown-options">
       <a
@@ -77,9 +64,6 @@ export default {
   methods: {
     onSelect(option) {
       this.$emit("select", option);
-    },
-    onClose() {
-      this.$emit("close");
     },
     onOpen() {
       this.showOptions = true;
