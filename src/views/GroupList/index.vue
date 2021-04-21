@@ -1,19 +1,23 @@
 <template>
   <div class="my-groups-container">
-    <table>
+    <table id="table-groups">
       <tr>
         <th>Name</th>
         <th>Description</th>
+        <th>Actions</th>
       </tr>
       <tr v-for="group in groups" :key="group._id">
-        <th>{{ group.name }}</th>
-        <th>{{ group.description }}</th>
-        <th>
+        <td>{{ group.name }}</td>
+        <td>{{ group.description }}</td>
+        <td>
           <router-link :to="{ name: 'EditGroup', params: { id: group._id } }"
-            >Edit
+            ><img src="../../assets/image/edit.svg" />
           </router-link>
-          <button @click="deleteGroup(group._id)">Delete</button>
-        </th>
+          <img
+            src="../../assets/image/delete.png"
+            @click="deleteGroup(group._id)"
+          />
+        </td>
       </tr>
     </table>
   </div>

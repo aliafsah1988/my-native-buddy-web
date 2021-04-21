@@ -1,6 +1,6 @@
 <template>
   <div class="my-words-container">
-    <table id="table">
+    <table id="table-words">
       <tr>
         <th>Word</th>
         <th>Description</th>
