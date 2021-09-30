@@ -29,7 +29,7 @@ export default {
     Button
   },
   computed: {
-    ...mapState("word", ["editWord"])
+    ...mapState("word", ["editWord","actionType"])
   },
   data() {
     return {
@@ -75,7 +75,11 @@ export default {
             text: "Your word isn't saved!",
             duration: "3000"
           });
-      this.$router.push({ name: "WordList" });
+
+      if(this.actionType === "add")
+        this.reset();
+      else
+        this.$router.push({ name: "WordList" });
     },
     onCancel() {
       this.$router.push({ name: "WordList" });
