@@ -59,11 +59,6 @@ const actions = {
         );
       }
       return result;
-    } catch (e) {
-      if (e instanceof WordError) {
-        commit("FAIL", { errorCode: e.errorCode, errorMessage: e.message });
-      }
-      return false;
     } finally {
       commit("RESET");
     }

@@ -29,7 +29,7 @@ export default {
     Button
   },
   computed: {
-    ...mapState("word", ["editWord","actionType"])
+    ...mapState("word", ["editWord", "actionType"])
   },
   data() {
     return {
@@ -59,27 +59,29 @@ export default {
       this.updateWord(word);
     },
     async save() {
+      try {
       this.loading = true;
-      const result = await this.saveWord();
-      this.loading = false;
-      result !== undefined && result !== null && result
-        ? this.$notify({
-            group: "success",
+      await this.saveWord();
+      this.$notify({
+            type: "success",
             title: "Success",
             text: "Your word is saved!",
             duration: "3000"
-          })
-        : this.$notify({
-            group: "error",
+          });
+      } catch (error) {
+        this.$notify({
+            type: "error",
             title: "Failed",
-            text: "Your word isn't saved!",
+            text: error,
             duration: "3000"
           });
+      }
+      finally {
+        this.loading = false;
+      }
 
-      if(this.actionType === "add")
-        this.reset();
-      else
-        this.$router.push({ name: "WordList" });
+      if (this.actionType === "add") this.reset();
+      else this.$router.push({ name: "WordList" });
     },
     onCancel() {
       this.$router.push({ name: "WordList" });
