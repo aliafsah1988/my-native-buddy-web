@@ -60,23 +60,22 @@ export default {
     },
     async save() {
       try {
-      this.loading = true;
-      await this.saveWord();
-      this.$notify({
-            type: "success",
-            title: "Success",
-            text: "Your word is saved!",
-            duration: "3000"
-          });
+        this.loading = true;
+        await this.saveWord();
+        this.$notify({
+          type: "success",
+          title: "Success",
+          text: "Your word is saved!",
+          duration: "3000"
+        });
       } catch (error) {
         this.$notify({
-            type: "error",
-            title: "Failed",
-            text: error,
-            duration: "3000"
-          });
-      }
-      finally {
+          type: "error",
+          title: "Failed",
+          text: error,
+          duration: "3000"
+        });
+      } finally {
         this.loading = false;
       }
 
