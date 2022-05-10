@@ -2,7 +2,7 @@
   <div id="app">
     <Header />
     <router-view :key="$route.fullPath" />
-    <notifications group="success" />
+    <notifications />
   </div>
 </template>
 

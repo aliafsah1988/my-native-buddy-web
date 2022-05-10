@@ -59,22 +59,25 @@ export default {
       this.updateGroup(group);
     },
     async save() {
-      this.loading = true;
-      const result = await this.saveGroup();
-      this.loading = false;
-      result !== undefined && result !== null && result
-        ? this.$notify({
-            group: "success",
-            title: "Success",
-            text: "Your group is saved!",
-            duration: "3000"
-          })
-        : this.$notify({
-            group: "error",
-            title: "Failed",
-            text: "Your group isn't saved!",
-            duration: "3000"
-          });
+      try {
+        this.loading = true;
+        await this.saveGroup();
+        this.$notify({
+          type: "success",
+          title: "Success",
+          text: "Your word is saved!",
+          duration: "3000"
+        });
+      } catch (error) {
+        this.$notify({
+          type: "error",
+          title: "Failed",
+          text: error,
+          duration: "3000"
+        });
+      } finally {
+        this.loading = false;
+      }
       this.$router.push({ name: "GroupList" });
     },
     onCancel() {

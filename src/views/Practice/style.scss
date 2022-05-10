@@ -3,10 +3,29 @@
     flex-direction: column;
     width: 100%;
     justify-content: center;
+    justify-self: center;
+    align-self: center;
     align-items: center;
-
+    margin-top: 5%;
     button, input {
         margin: 5px;
+    }
+    button {
+        width: 15%;
+        margin-bottom: 2%;
+        background-color: #004e7c;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        font-size: 15px;
+        padding: 10px;
+        color: white;
+    }
+    input {
+        padding: 10px;
+        background-color: #f0f3f4;
+        border-color: #DCE1E3;
+        width: 15%;
     }
 
     .result {

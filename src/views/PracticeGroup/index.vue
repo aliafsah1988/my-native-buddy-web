@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <router-link
       v-for="(group, index) in groups"
       :key="index"
