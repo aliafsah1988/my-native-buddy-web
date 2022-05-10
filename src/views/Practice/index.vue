@@ -87,7 +87,7 @@ export default {
     hasNext(value) {
       if (value === false)
         this.$notify({
-          group: "success",
+          type: "success",
           title: "Done",
           text: "Nice job! Today's practices are over!",
           duration: "5000"
