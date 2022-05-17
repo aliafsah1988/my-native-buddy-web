@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import AuthService from "../../_old/src/services/auth.service";
+import AuthService from "../../../_old/src/services/auth.service";
 import { useRouter } from "vue-router";
 
 const email = ref<string>("");
@@ -39,3 +39,7 @@ const login = async () => {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+@import "./Login.scss";
+</style>
