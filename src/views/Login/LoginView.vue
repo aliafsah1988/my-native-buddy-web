@@ -4,11 +4,11 @@
       <div class="login-container__box">
         <div class="login-container__box__item">
           <label for="name">Username</label>
-          <input v-model="email" />
+          <input v-model="email" placeholder="Email Address" />
         </div>
         <div class="login-container__box__item">
           <label for="name">Password</label>
-          <input v-model="password" />
+          <input v-model="password" placeholder="Password" />
         </div>
         <div class="login">
           <button @click="login">Login</button>
