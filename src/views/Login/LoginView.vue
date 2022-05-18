@@ -15,7 +15,7 @@
         </div>
         <span>
           If you don't have an account please
-          <router-link :to="{ name: 'Register' }">Register</router-link>
+          <router-link :to="{ name: 'register' }">Register</router-link>
           first.
         </span>
       </div>
@@ -35,7 +35,7 @@ const router = useRouter();
 const login = async () => {
   const result = await AuthService.login(email.value, password.value);
   if (result && result.length > 0) {
-    router.push({ name: "PracticeGroup" });
+    router.push({ name: "practiceGroup" });
   }
 };
 </script>

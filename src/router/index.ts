@@ -15,11 +15,27 @@ const router = createRouter({
     },
     {
       path: "/register",
-      name: "Register",
+      name: "register",
       component: () => import("../views/Register/RegisterView.vue"),
       meta: {
         public: true,
         onlyWhenLoggedOut: true,
+      },
+    },
+    {
+      path: "/practice",
+      name: "practiceGroup",
+      component: () => import("../views/PracticeGroup/PracticeGroupView.vue"),
+      meta: {
+        public: false,
+      },
+    },
+    {
+      path: "/practice/:groupId",
+      name: "practice",
+      component: () => import("../views/Practice/PracticeView.vue"),
+      meta: {
+        public: false,
       },
     },
   ],
