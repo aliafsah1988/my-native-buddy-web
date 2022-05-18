@@ -13,6 +13,15 @@ const router = createRouter({
         onlyWhenLoggedOut: true,
       },
     },
+    {
+      path: "/register",
+      name: "Register",
+      component: () => import("../views/Register/RegisterView.vue"),
+      meta: {
+        public: true,
+        onlyWhenLoggedOut: true,
+      },
+    },
   ],
 });
 

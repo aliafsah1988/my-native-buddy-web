@@ -1,0 +1,54 @@
+.register-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 10px;
+    margin-top: 2%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 88.3vh;
+    &__box {
+        display: grid;
+        border: 1px solid #a8b7bd;
+        padding: 30px;
+        height:70%;
+        justify-self: center;
+        align-items: center;
+        justify-items: center;
+        width: 40%;
+        &__item {
+            width: 100%;
+        }
+        label {
+            display: block;
+            font: 1rem;
+            padding: 5px;
+            color: #5C5F58;
+        }
+        input {
+            padding: 10px;
+            background-color: #e2e7e9;
+            border-color: #DCE1E3;
+            width: 100%;
+            border-radius: 30px;
+            border: none;
+        }
+        .register {
+            display: flex;
+            justify-content:center;
+            width: 100%;
+            border-radius: 30px;
+            border: none;
+        }
+        button {
+            background-color: #004E7C;
+            padding: 10px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            color: white;
+            width: 200px;
+            border-radius: 30px;
+        }
+    }
+}
