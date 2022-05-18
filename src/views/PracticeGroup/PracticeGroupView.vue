@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="container">
     <router-link
+      class="router"
       v-for="(group, index) in groups"
       :key="index"
       :to="{ name: 'practice', params: { groupId: group._id } }"
@@ -21,3 +22,7 @@ onMounted(async () => {
 
 const { groups, setGroups } = useGroupsStore();
 </script>
+
+<style lang="scss" scoped>
+@import "./PracticeGroup.scss";
+</style>
