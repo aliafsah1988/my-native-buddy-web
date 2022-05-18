@@ -15,7 +15,7 @@
         </div>
         <span>
           If you don't have an account please
-          <!-- <router-link :to="{ name: 'Register' }">Register</router-link> -->
+          <router-link :to="{ name: 'Register' }">Register</router-link>
           first.
         </span>
       </div>

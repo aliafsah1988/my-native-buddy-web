@@ -10,11 +10,14 @@
         <input v-model="password" placeholder="Password" />
       </div>
       <div class="register">
-        <button @click="login">Register</button>
+        <button @click="login">Create Account</button>
       </div>
+      <span>
+        If you have an account please
+        <router-link :to="{ name: 'login' }">Login</router-link>
+      </span>
     </div>
   </div>
-  <!-- <router-link :to="{ name: 'Login' }">Login</router-link> -->
 </template>
 
 <script setup lang="ts">
