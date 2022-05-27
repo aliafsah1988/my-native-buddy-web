@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { defineProps } from "vue";
-import Label from "../Label/Label.vue";
+// import Label from "../Label/Label.vue";
 import "./style.scss";
 
 const props = defineProps({
