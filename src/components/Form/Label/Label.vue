@@ -3,12 +3,6 @@
     <slot></slot>
   </label>
 </template>
-
-<script>
-// Style
-import "./style.styl";
-
-export default {
-  name: "Label"
-};
+<script setup lang="ts">
+import "./style.scss";
 </script>
