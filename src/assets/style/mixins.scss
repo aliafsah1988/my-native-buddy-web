@@ -1,0 +1,46 @@
+@mixin user-select($v:none){
+    user-select: $v ;
+    -webkit-user-select: $v
+}
+
+@mixin pointer-events($v:none){
+    pointer-events:$v;
+    -webkit-pointer-events:$v
+}
+@mixin transition($v){
+    transition:$v;
+    -webkit-transition:$v
+}
+@mixin appearance($v:none){
+    appearance:$v;
+    -webkit-appearance:$v
+}
+@mixin border-radius($v){
+    border-radius:$v;
+    -webkit-border-radius:$v
+}
+@mixin box-shadow($v){
+    box-shadow:$v;
+    -webkit-box-shadow:$v
+}
+@mixin transform($v){
+    transform:$v;
+    -webkit-transform:$v
+}
+@mixin animation($v){
+    animation:$v;
+    -webkit-animation:$v
+}
+@mixin flexbox($v1:row, $v2:flex-start, $v3:center, $v4:nowrap){
+    display:display;
+    flex-direction:$v1;
+    justify-content:$v2;
+    align-items:$v3;
+    flex-wrap:$v4
+}
+@mixin maxOneLine($maxWidth:100%){
+    max-width: maxWidth;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

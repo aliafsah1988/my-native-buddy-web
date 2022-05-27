@@ -1,0 +1,101 @@
+@import '../../assets/style/required.scss';
+
+.g-button {
+	font-weight: 500;
+	outline: 0;
+	border: 0;
+	cursor: pointer;
+	text-decoration: none;
+	display: inline-block;
+	text-align: center;
+	&.block {
+		width: 100%;
+		display: block;
+	}
+}
+.g-button--brand-border {
+	border: 1px solid $brand;
+	color: $brand;
+	background: $transparent;
+}
+.g-button--white-border {
+	border: 1px solid $white;
+	color: $white;
+	background: $transparent;
+}
+.g-button--black-border {
+	border: 1px solid $black;
+	color: $black;
+	background: $transparent;
+}
+.g-button--brand {
+	border: 1px solid $brand;
+	color: $white;
+	background: $brand;
+}
+.g-button--brand-dark {
+	border: 1px solid $brandDark;
+	color: $white;
+	background: $brandDark;
+}
+.g-button--brand-light {
+	border: 1px solid $brandLight;
+	color: $brandDark;
+	background: $brandLight;
+}
+.g-button--blue {
+	border: 1px solid $blue;
+	color: $white;
+	background: $blue;
+}
+.g-button--basic-five {
+	border: 1px solid $basicFive;
+	color: $basicTwo;
+	background: $basicFive;
+}
+.g-button--white {
+	color: $dark;
+	background: $white;
+}
+.g-button--disabled {
+	opacity: 0.5;
+}
+.g-button--small {
+	font-size: 13px;
+	line-height: 16px;
+	padding: 9px 13px;
+}
+.g-button--medium {
+	font-size: 15px;
+	line-height: 21px;
+	padding: 11px 24px;
+}
+.g-button--loading {
+	position: relative;
+	cursor: auto;
+	&:before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background: $white;
+		opacity: 0.4;
+		z-index: 1;
+	}
+	&:after {
+		content: '';
+		display: inline-block;
+		width: 15px;
+		height: 15px;
+		position: absolute;
+		left: 50%;
+		margin-left: -7.5px;
+		top: 50%;
+		margin-top: -7.5px;
+		border: 2px solid $white;
+		border-right-color: $dark;
+		z-index: 2;
+	}
+}
