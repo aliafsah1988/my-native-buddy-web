@@ -1,0 +1,31 @@
+@import '../../assets/style/required.scss';
+
+.g-form-input {
+	position: relative;
+	border: 1px solid #5c5f58;
+	background: $white;
+	overflow: hidden;
+	height: 42px;
+	&.error {
+		border-color: $red;
+	}
+	input {
+		font-size: 15px;
+		line-height: 18px;
+		color: $basicOne;
+		display: block;
+		outline: 0;
+		border: 0;
+		padding: 0 15px;
+		width: 100%;
+		height: 40px;
+	}
+}
+.g-form-input__suffix {
+	font-weight: 500;
+	font-size: 15px;
+	line-height: 18px;
+	color: $basicThree;
+	padding: 0 12px;
+}
+
