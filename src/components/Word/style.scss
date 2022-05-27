@@ -1,0 +1,30 @@
+.word-container {
+    width: 60%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    .g-form-field {
+        width: 90%;
+    }
+    .text-container {
+        margin-top: 2%;
+        .g-form-field__content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .g-form-input {
+                width: 100%;
+            }
+            button {
+                background-color: #004e7c;
+                margin: 0;
+                width: 70px;
+                outline: none;
+                margin-left: 2%;
+                border: none;
+            }
+        }
+    }
+}
