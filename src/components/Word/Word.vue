@@ -80,7 +80,7 @@ export default {
     Field,
     Input,
     Button,
-    Select
+    Select,
   },
   props: {
     word: {
@@ -90,18 +90,18 @@ export default {
           text: "",
           description: "",
           synonyms: "",
-          translation: ""
+          translation: "",
         };
-      }
+      },
     },
     wordType: {
       type: String,
-      default: "show"
+      default: "show",
     },
     disabled: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   mounted() {
     this.getMyGroups();
@@ -121,20 +121,20 @@ export default {
       selectedLang: "",
       langOptions: [],
       groupOptions: [],
-      buttonType
+      buttonType,
     };
   },
   computed: {
     ...mapState("groupList", ["groups"]),
     ...mapState("lang", ["langs"]),
-    inputStyle: function() {
+    inputStyle: function () {
       return {
-        "pointer-events": this.wordType === "show" ? "none" : "auto"
+        "pointer-events": this.wordType === "show" ? "none" : "auto",
       };
     },
-    textError: function() {
+    textError: function () {
       return this.text && this.text.length === 0 ? "*Required" : "";
-    }
+    },
   },
   methods: {
     ...mapActions("groupList", ["getMyGroups"]),
@@ -143,7 +143,7 @@ export default {
     play() {
       pronunciationService.play({
         text: this.text,
-        langId: this.langId
+        langId: this.langId,
       });
     },
     onSpellingChange(text) {
@@ -181,10 +181,10 @@ export default {
         this.selectedLang = lang.name;
         this.langId = lang._id;
       }
-    }
+    },
   },
   watch: {
-    word: function(val) {
+    word: function (val) {
       if (val) {
         this.text = val.text;
         this.description = val.description;
@@ -194,84 +194,84 @@ export default {
         this.getLang(val.langId);
       }
     },
-    text: function(val) {
+    text: function (val) {
       this.$emit("change", {
         text: val,
         description: this.description,
         synonyms: this.synonyms,
         translation: this.translation,
         groupId: this.groupId,
-        langId: this.langId
+        langId: this.langId,
       });
     },
-    description: function(val) {
+    description: function (val) {
       this.$emit("change", {
         text: this.text,
         description: val,
         synonyms: this.synonyms,
         translation: this.translation,
         groupId: this.groupId,
-        langId: this.langId
+        langId: this.langId,
       });
     },
-    synonyms: function(val) {
+    synonyms: function (val) {
       this.$emit("change", {
         text: this.text,
         description: this.description,
         synonyms: val,
         translation: this.translation,
         groupId: this.groupId,
-        langId: this.langId
+        langId: this.langId,
       });
     },
-    translation: function(val) {
+    translation: function (val) {
       this.$emit("change", {
         text: this.text,
         description: this.description,
         synonyms: this.synonyms,
         translation: val,
         groupId: this.groupId,
-        langId: this.langId
+        langId: this.langId,
       });
     },
-    groupId: function(val) {
+    groupId: function (val) {
       this.$emit("change", {
         text: this.text,
         description: this.description,
         synonyms: this.synonyms,
         translation: this.translation,
         groupId: val,
-        langId: this.langId
+        langId: this.langId,
       });
     },
-    langId: function(val) {
+    langId: function (val) {
       this.$emit("change", {
         text: this.text,
         description: this.description,
         synonyms: this.synonyms,
         translation: this.translation,
         groupId: this.groupId,
-        langId: val
+        langId: val,
       });
     },
-    groups: function(val) {
+    groups: function (val) {
       if (!val || val.length < 0) return [];
-      this.groupOptions = val.map(group => {
+      this.groupOptions = val.map((group) => {
         return {
           value: group._id,
-          label: group.name
+          label: group.name,
         };
       });
     },
-    langs: function(val) {
+    langs: function (val) {
       if (!val || val.length < 0) return [];
-      this.langOptions = val.map(lang => {
+      this.langOptions = val.map((lang) => {
         return {
           value: lang._id,
-          label: lang.name
+          label: lang.name,
         };
       });
-    }
-  }
+    },
+  },
 };
 </script>
