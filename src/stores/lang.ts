@@ -34,4 +34,6 @@ export const useLangStore = defineStore("lang", () => {
     langErrorCode.value = errorCode;
     langError.value = errorMessage;
   };
+
+  return { langs, getLangs, getLangById };
 });
