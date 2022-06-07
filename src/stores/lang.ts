@@ -6,6 +6,7 @@ export const useLangStore = defineStore("lang", () => {
   const langs = reactive<any[]>([]);
   const langErrorCode = ref<number | null>(null);
   const langError = ref<string>("");
+
   const getLangs = async () => {
     try {
       Object.assign(langs, []);
@@ -29,7 +30,6 @@ export const useLangStore = defineStore("lang", () => {
       return false;
     }
   };
-
   const fail = (errorCode: number, errorMessage: string) => {
     langErrorCode.value = errorCode;
     langError.value = errorMessage;

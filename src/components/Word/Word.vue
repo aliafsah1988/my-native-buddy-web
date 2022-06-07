@@ -5,7 +5,7 @@
         :placeholder="'Your Word Here...'"
         @input="onSpellingChange"
         :error="textError"
-        :initValue="text"
+        :initValue="word.text"
         :disabled="disabled"
       />
       <Button @click="play" :text="'Play'" :theme="buttonType.BRAND_DARK" />
@@ -37,7 +37,7 @@
       <Input
         :placeholder="'Translation ...'"
         @input="onTranslationChange"
-        :initValue="translation"
+        :initValue="word.translation"
         :disabled="disabled"
       />
     </Field>
@@ -46,7 +46,7 @@
       <Input
         :placeholder="'Description ...'"
         @input="onDescriptionChange"
-        :initValue="description"
+        :initValue="word.description"
         :disabled="disabled"
       />
     </Field>
@@ -55,223 +55,188 @@
       <Input
         :placeholder="'Synonyms ...'"
         @input="onSynonymsChange"
-        :initValue="synonyms"
+        :initValue="word.synonyms"
         :disabled="disabled"
       />
     </Field>
   </div>
 </template>
 
-<script>
-import PronunciationService from "@/services/pronunciation.service";
-import buttonType from "../../types/buttonType";
-import { mapState, mapActions } from "vuex";
-import Field from "../Form/Field";
-import Input from "../Form/Input";
-import Select from "../Form/Select";
-import Button from "../Button";
-
+<script setup lang="ts">
+import { defineProps, ref, computed, onMounted, reactive, watch } from "vue";
 import "./style.scss";
+import buttonType from "../../../_old/src/types/buttonType";
+import PronunciationService from "../../../_old/src/services/pronunciation.service";
+import Field from "../Form/Field/Field.vue";
+import Input from "../Form/Input/Input.vue";
+import Select from "../Form/Select/Select.vue";
+import Button from "../Button/Button.vue";
+import { useGroupListStore } from "../../stores/groupList";
+import { useLangStore } from "../../stores/lang";
+import { useGroupStore } from "../../stores/group";
+
+const emit = defineEmits(["change"]);
+
+const props = defineProps({
+  word: {
+    type: Object,
+  },
+  wordType: {
+    type: String,
+    default: "show",
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+});
+const { groups, getMyGroups } = useGroupListStore();
+const { langs, getLangById, getLangs } = useLangStore();
+const { getGroupById } = useGroupStore();
+watch(
+  () => props.word.value,
+  (word, prevWord) => {
+    getGroup(word.groupId);
+    getLang(word.langId);
+  }
+);
+
 const pronunciationService = new PronunciationService();
 
-export default {
-  name: "Word",
-  components: {
-    Field,
-    Input,
-    Button,
-    Select,
-  },
-  props: {
-    word: {
-      type: Object,
-      default() {
-        return {
-          text: "",
-          description: "",
-          synonyms: "",
-          translation: "",
-        };
-      },
-    },
-    wordType: {
-      type: String,
-      default: "show",
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  mounted() {
-    this.getMyGroups();
-    this.getLangs();
-  },
-  data() {
-    return {
-      text: this.word !== undefined ? this.word.text : "",
-      description: this.word !== undefined ? this.word.description : "",
-      synonyms: this.word !== undefined ? this.word.synonyms : "",
-      translation: this.word !== undefined ? this.word.translation : "",
-      groupId: this.word !== undefined ? this.word.groupId : "",
-      langId: this.word !== undefined ? this.word.langId : "",
-      group: null,
-      lang: "",
-      selectedGroup: "",
-      selectedLang: "",
-      langOptions: [],
-      groupOptions: [],
-      buttonType,
-    };
-  },
-  computed: {
-    ...mapState("groupList", ["groups"]),
-    ...mapState("lang", ["langs"]),
-    inputStyle: function () {
-      return {
-        "pointer-events": this.wordType === "show" ? "none" : "auto",
-      };
-    },
-    textError: function () {
-      return this.text && this.text.length === 0 ? "*Required" : "";
-    },
-  },
-  methods: {
-    ...mapActions("groupList", ["getMyGroups"]),
-    ...mapActions("group", ["getGroupById"]),
-    ...mapActions("lang", ["getLangs", "getLangById"]),
-    play() {
-      pronunciationService.play({
-        text: this.text,
-        langId: this.langId,
-      });
-    },
-    onSpellingChange(text) {
-      this.text = text;
-    },
-    onDescriptionChange(description) {
-      this.description = description;
-    },
-    onSynonymsChange(synonyms) {
-      this.synonyms = synonyms;
-    },
-    onTranslationChange(translation) {
-      this.translation = translation;
-    },
-    onSelectGroup(option) {
-      this.group = option;
-      this.selectedGroup = option.label;
-      this.groupId = option.value;
-    },
-    onSelectLang(option) {
-      this.lang = option;
-      this.selectedLang = option.label;
-      this.langId = option.value;
-    },
-    async getGroup(groupId) {
-      const group = await this.getGroupById(groupId);
-      if (group) {
-        this.selectedGroup = group.name;
-        this.groupId = group._id;
-      }
-    },
-    async getLang(langId) {
-      const lang = await this.getLangById(langId);
-      if (lang) {
-        this.selectedLang = lang.name;
-        this.langId = lang._id;
-      }
-    },
-  },
-  watch: {
-    word: function (val) {
-      if (val) {
-        this.text = val.text;
-        this.description = val.description;
-        this.synonyms = val.synonyms;
-        this.translation = val.translation;
-        this.getGroup(val.groupId);
-        this.getLang(val.langId);
-      }
-    },
-    text: function (val) {
-      this.$emit("change", {
-        text: val,
-        description: this.description,
-        synonyms: this.synonyms,
-        translation: this.translation,
-        groupId: this.groupId,
-        langId: this.langId,
-      });
-    },
-    description: function (val) {
-      this.$emit("change", {
-        text: this.text,
-        description: val,
-        synonyms: this.synonyms,
-        translation: this.translation,
-        groupId: this.groupId,
-        langId: this.langId,
-      });
-    },
-    synonyms: function (val) {
-      this.$emit("change", {
-        text: this.text,
-        description: this.description,
-        synonyms: val,
-        translation: this.translation,
-        groupId: this.groupId,
-        langId: this.langId,
-      });
-    },
-    translation: function (val) {
-      this.$emit("change", {
-        text: this.text,
-        description: this.description,
-        synonyms: this.synonyms,
-        translation: val,
-        groupId: this.groupId,
-        langId: this.langId,
-      });
-    },
-    groupId: function (val) {
-      this.$emit("change", {
-        text: this.text,
-        description: this.description,
-        synonyms: this.synonyms,
-        translation: this.translation,
-        groupId: val,
-        langId: this.langId,
-      });
-    },
-    langId: function (val) {
-      this.$emit("change", {
-        text: this.text,
-        description: this.description,
-        synonyms: this.synonyms,
-        translation: this.translation,
-        groupId: this.groupId,
-        langId: val,
-      });
-    },
-    groups: function (val) {
-      if (!val || val.length < 0) return [];
-      this.groupOptions = val.map((group) => {
+const synonyms = ref<string>(
+  props.word.value !== undefined ? props.word.value.synonyms : ""
+);
+const translation = ref<string>(
+  props.word.value !== undefined ? props.word.value.translation : ""
+);
+
+onMounted(() => {
+  getMyGroups();
+  getLangs();
+});
+
+const groupId = ref<string>(props.word !== undefined ? props.word.groupId : "");
+const langId = ref<string>(props.word !== undefined ? props.word.langId : "");
+const group = reactive<any>(null);
+const lang = ref<string>("");
+const selectedGroup = ref<string>("");
+const selectedLang = ref<string>("");
+const langOptions = computed(() => {
+  return langs !== null && langs !== undefined
+    ? langs.map((group) => {
         return {
           value: group._id,
           label: group.name,
         };
-      });
-    },
-    langs: function (val) {
-      if (!val || val.length < 0) return [];
-      this.langOptions = val.map((lang) => {
-        return {
-          value: lang._id,
-          label: lang.name,
-        };
-      });
-    },
-  },
+      })
+    : [];
+});
+const groupOptions = computed(() => {
+  return groups.map((group) => {
+    return {
+      value: group._id,
+      label: group.name,
+    };
+  });
+});
+const inputStyle = computed(() => {
+  return {
+    "pointer-events": props.wordType === "show" ? "none" : "auto",
+  };
+});
+const textError = computed(() => {
+  return props.word.value !== undefined &&
+    props.word.value.text &&
+    props.word.value.length === 0
+    ? "*Required"
+    : "";
+});
+const play = () => {
+  pronunciationService.play({
+    text: props.word.value.text,
+    langId: langId,
+  });
+};
+const onSpellingChange = (input) => {
+  emit("change", {
+    text: input,
+    description: props.word.value.description,
+    synonyms: props.word.value.synonyms,
+    translation: props.word.value.translation,
+    groupId: groupId.value,
+    langId: langId.value,
+  });
+};
+const onDescriptionChange = (input) => {
+  emit("change", {
+    text: props.word.valu.text,
+    description: input,
+    synonyms: props.word.value.synonyms,
+    translation: props.word.value.translation,
+    groupId: groupId.value,
+    langId: langId.value,
+  });
+};
+const onSynonymsChange = (input) => {
+  synonyms.value = input;
+  emit("change", {
+    text: props.word.value.text,
+    description: props.word.value.description,
+    synonyms: input,
+    translation: props.word.value.translation,
+    groupId: groupId.value,
+    langId: langId.value,
+  });
+};
+const onTranslationChange = (input) => {
+  translation.value = input;
+  emit("change", {
+    text: props.word.value.text,
+    description: props.word.value.description,
+    synonyms: props.word.value.synonyms,
+    translation: input,
+    groupId: groupId.value,
+    langId: langId.value,
+  });
+};
+const onSelectGroup = (option) => {
+  group.value = option;
+  selectedGroup.value = option.label;
+  groupId.value = option.value;
+  emit("change", {
+    text: props.word.value.text,
+    description: props.word.value.description,
+    synonyms: props.word.value.synonyms,
+    translation: props.word.value.translation,
+    groupId: option.value,
+    langId: langId.value,
+  });
+};
+const onSelectLang = (option) => {
+  lang.value = option;
+  selectedLang.value = option.label;
+  langId.value = option.value;
+  emit("change", {
+    text: props.word.value.text,
+    description: props.word.value.description,
+    synonyms: props.word.value.synonyms,
+    translation: props.word.value.translation,
+    groupId: groupId.value,
+    langId: option.value,
+  });
+};
+const getGroup = async (groupId) => {
+  const group = await getGroupById(groupId);
+  if (group) {
+    selectedGroup.value = group.name;
+    groupId = group._id;
+  }
+};
+const getLang = async (langId) => {
+  const lang = await getLangById(langId);
+  if (lang) {
+    selectedLang.value = lang.name;
+    langId = lang._id;
+  }
 };
 </script>

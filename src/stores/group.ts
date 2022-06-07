@@ -5,7 +5,7 @@ import {
 import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
 
-export const useGroupListStore = defineStore("lang", () => {
+export const useGroupStore = defineStore("group", () => {
   const group = reactive<any>(null);
   const actionType = ref<string>("");
   const editGroup = reactive<any>(null);

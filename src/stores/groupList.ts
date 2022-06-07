@@ -5,7 +5,7 @@ import {
 import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
 
-export const useGroupListStore = defineStore("lang", () => {
+export const useGroupListStore = defineStore("groupList", () => {
   const groups = reactive<any[]>([]);
   const groupErrorCode = ref<number | null>(null);
   const groupError = ref<string>("");
