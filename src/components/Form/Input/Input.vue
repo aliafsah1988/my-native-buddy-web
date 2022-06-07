@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, defineProps } from "vue";
+import { ref, computed, defineProps, watch } from "vue";
 // import Label from "../Label/Label.vue";
 import "./style.scss";
 
@@ -57,7 +57,14 @@ const props = defineProps({
     default: false,
   },
 });
+
 const value = ref<string>(props.initValue);
+watch(
+  () => props.initValue,
+  (newValue, prevValue) => {
+    value.value = newValue;
+  }
+);
 const hasError = computed(() => {
   return props.error && props.error.length > 0;
 });
