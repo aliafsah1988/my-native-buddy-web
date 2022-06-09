@@ -11,7 +11,7 @@ export const usePracticeStore = defineStore("practice", () => {
   const practiceErrorCode = ref<number | null>(null);
   const practiceError = ref<string>("");
   const wordToShow = reactive<any>({});
-  const hasNext = ref<boolean | undefined>(undefined);
+  const hasNext = ref<boolean>(false);
 
   const getToday = async (groupId: any) => {
     try {
@@ -22,8 +22,8 @@ export const usePracticeStore = defineStore("practice", () => {
       if (practiceWords.length === 0) {
         hasNext.value = false;
       } else {
-        Object.assign(words, practiceWords);
         hasNext.value = true;
+        Object.assign(words, practiceWords);
       }
     } catch (e: any) {
       if (e instanceof PracticeError) {
@@ -56,7 +56,9 @@ export const usePracticeStore = defineStore("practice", () => {
       } else {
         if (words.length > 0) {
           words.splice(0, 1);
-          Object.assign(wordToShow, null);
+          for (const prop of Object.getOwnPropertyNames(wordToShow)) {
+            delete wordToShow[prop];
+          }
           result.value = null;
         }
       }

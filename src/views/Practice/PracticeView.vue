@@ -8,11 +8,22 @@
       @keyup.enter="check"
     />
     <button :disabled="!enableCheck" @click="check">Check</button>
-    <button v-if="hasNext && wordToShow" @click="goNext">Next</button>
-    <div class="result" v-if="wordToShow" :class="resultType">{{ result }}</div>
+    <button
+      v-if="
+        store.hasNext &&
+        store.wordToShow !== undefined &&
+        store.wordToShow._id !== undefined
+      "
+      @click="goNext"
+    >
+      Next
+    </button>
+    <div class="result" v-if="store.wordToShow" :class="resultType">
+      {{ store.result }}
+    </div>
     <Word
-      v-show="wordToShow && wordToShow._id"
-      :word="wordToShow"
+      v-show="store.wordToShow && store.wordToShow._id"
+      :word="store.wordToShow"
       :type="'show'"
       disabled
     />
@@ -25,38 +36,40 @@ import PronunciationService from "../../../_old/src/services/pronunciation.servi
 import { usePracticeStore } from "../../stores/practice";
 import { useRouter } from "vue-router";
 
+const store = usePracticeStore();
 const pronunciationService = new PronunciationService();
 const enablePlay = computed(() => {
-  return words && words.length > 0;
+  return store.words && store.words.length > 0;
 });
 const text = ref<string>("");
 const textToShow = computed(() => {
-  return wordToShow.text;
+  return store.wordToShow.text;
 });
-const { words, result, wordToShow, hasNext, getToday, next, checkWord } =
-  usePracticeStore();
+
 const router = useRouter();
 
 onMounted(() => {
-  getToday(router.currentRoute.value.params.groupId);
+  store.getToday(router.currentRoute.value.params.groupId);
 });
 
 const resultType = computed(() => {
   return {
-    "result-correct": result && result === "correct",
-    "result-wrong": result && result === "wrong",
+    "result-correct": store.result && store.result === "correct",
+    "result-wrong": store.result && store.result === "wrong",
   };
 });
 
 const enableCheck = computed(() => {
-  return wordToShow && wordToShow._id ? false : text.value.length > 0;
+  return store.wordToShow && store.wordToShow._id
+    ? false
+    : text.value.length > 0;
 });
 
 const play = () => {
-  pronunciationService.play(words[0]);
+  pronunciationService.play(store.words[0]);
 };
 const check = () => {
-  if (!words || !words[0] || !text.value || text.value.length < 1) {
+  if (!store.words || !store.words[0] || !text.value || text.value.length < 1) {
     // $notify({
     //   group: "warn",
     //   title: "Empty text",
@@ -65,15 +78,15 @@ const check = () => {
     // });
     return;
   }
-  checkWord({ wordId: words[0]._id, text: text.value });
+  store.checkWord({ wordId: store.words[0]._id, text: text.value });
 };
 const goNext = () => {
   text.value = "";
-  next(router.currentRoute.value.params.groupId);
+  store.next(router.currentRoute.value.params.groupId);
 };
 
 watch(
-  () => hasNext,
+  () => store.hasNext,
   () => {
     // if (value === false)
     //       this.$notify({
