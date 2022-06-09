@@ -94,11 +94,12 @@ const { groups, getMyGroups } = useGroupListStore();
 const { langs, getLangById, getLangs } = useLangStore();
 const { getGroupById } = useGroupStore();
 watch(
-  () => props.word.value,
+  () => props.word,
   (word, prevWord) => {
     getGroup(word.groupId);
     getLang(word.langId);
-  }
+  },
+  { deep: true }
 );
 
 const pronunciationService = new PronunciationService();

@@ -8,7 +8,7 @@ import { reactive, ref } from "vue";
 export const useGroupStore = defineStore("group", () => {
   const group = reactive<any>(null);
   const actionType = ref<string>("");
-  const editGroup = reactive<any>(null);
+  const editGroup = reactive<any>({});
   const groupError = ref<string>("");
   const groupErrorCode = ref<number>(0);
   const setActionType = async (actionType: any) => {
@@ -47,13 +47,13 @@ export const useGroupStore = defineStore("group", () => {
   const getGroupById = async (groupId: any) => {
     try {
       const group = await GroupService.getById(groupId);
-      editGroup.value = editGroup;
+      Object.assign(editGroup, group);
       return group;
     } catch (e: any) {
       if (e instanceof GroupError) {
         fail(e.errorCode, e.message);
       }
-      return false;
+      return undefined;
     }
   };
   const fail = (errorCode: number, errorMessage: string) => {
