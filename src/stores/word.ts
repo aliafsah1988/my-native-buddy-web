@@ -1,14 +1,10 @@
 import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
-import {
-  WordService,
-  WordError,
-} from "../../_old/src/services/practice.service";
+import { WordService, WordError } from "../../_old/src/services/word.service";
 
-export const usePracticeStore = defineStore("practice", () => {
-  const word = reactive<any>(null);
+export const useWordStore = defineStore("word", () => {
+  let word = reactive<any>({});
   const actionType = ref<string>("");
-  const editWord = reactive<any>(undefined);
   const wordErrorCode = ref<number>(0);
   const wordError = ref<string>("");
 
@@ -22,10 +18,11 @@ export const usePracticeStore = defineStore("practice", () => {
       return false;
     }
   };
-  const updateWord = async (newWord: any) => {
+  const updateWord = (newWord: any) => {
     try {
       Object.assign(word, newWord);
     } catch (e: any) {
+      console.error(e);
       if (e instanceof WordError) {
         fail(e.errorCode, e.message);
       }
@@ -46,7 +43,7 @@ export const usePracticeStore = defineStore("practice", () => {
         );
       } else {
         result = await WordService.update(
-          editWord._id,
+          word._id,
           word.text,
           word.description,
           word.synonyms,
@@ -68,7 +65,7 @@ export const usePracticeStore = defineStore("practice", () => {
   const getWordById = async (wordId: any) => {
     try {
       const newEditWord = await WordService.getById(wordId);
-      Object.assign(editWord, newEditWord);
+      Object.assign(word, newEditWord);
     } catch (e: any) {
       if (e instanceof WordError) {
         fail(e.errorCode, e.message);
@@ -91,10 +88,17 @@ export const usePracticeStore = defineStore("practice", () => {
     wordError.value = errorMessage;
   };
   const localReset = () => {
-    Object.assign(word, null);
+    word = reactive<any>({});
     wordErrorCode.value = 0;
     wordError.value = "";
-    Object.assign(editWord, undefined);
   };
-  return { editWord, actionType };
+  return {
+    word,
+    actionType,
+    saveWord,
+    updateWord,
+    reset,
+    setActionType,
+    getWordById,
+  };
 });

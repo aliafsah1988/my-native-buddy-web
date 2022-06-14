@@ -14,7 +14,7 @@
         <td>{{ word.synonyms }}</td>
         <td>{{ word.translation }}</td>
         <td>
-          <router-link :to="{ name: 'EditWord', params: { id: word._id } }"
+          <router-link :to="{ name: 'editWord', params: { id: word._id } }"
             ><img src="../../assets/image/edit.svg" />
           </router-link>
           <img

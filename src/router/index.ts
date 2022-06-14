@@ -38,6 +38,23 @@ const router = createRouter({
         public: false,
       },
     },
+    {
+      path: "/word/add",
+      name: "addWord",
+      component: () => import("../views/AddWord/AddWordView.vue"),
+      meta: {
+        public: false,
+      },
+    },
+    {
+      path: "/word/edit/:id",
+      name: "editWord",
+      component: () => import("../views/AddWord/AddWordView.vue"),
+      meta: {
+        public: false,
+      },
+      props: true,
+    },
   ],
 });
 

@@ -96,8 +96,8 @@ const { getGroupById } = useGroupStore();
 watch(
   () => props.word,
   (word, prevWord) => {
-    getGroup(word.groupId);
-    getLang(word.langId);
+    if (groupId.value !== word.groupId) getGroup(word.groupId);
+    if (langId.value !== word.langId) getLang(word.langId);
   },
   { deep: true }
 );
@@ -105,10 +105,14 @@ watch(
 const pronunciationService = new PronunciationService();
 
 const synonyms = ref<string>(
-  props.word.value !== undefined ? props.word.value.synonyms : ""
+  props.word !== undefined && props.word.value !== undefined
+    ? props.word.value.synonyms
+    : ""
 );
 const translation = ref<string>(
-  props.word.value !== undefined ? props.word.value.translation : ""
+  props.word !== undefined && props.word.value !== undefined
+    ? props.word.value.translation
+    : ""
 );
 
 onMounted(() => {
@@ -118,7 +122,7 @@ onMounted(() => {
 
 const groupId = ref<string>(props.word !== undefined ? props.word.groupId : "");
 const langId = ref<string>(props.word !== undefined ? props.word.langId : "");
-const group = reactive<any>(null);
+const group = reactive<any>({});
 const lang = ref<string>("");
 const selectedGroup = ref<string>("");
 const selectedLang = ref<string>("");
@@ -146,34 +150,34 @@ const inputStyle = computed(() => {
   };
 });
 const textError = computed(() => {
-  return props.word.value !== undefined &&
-    props.word.value.text &&
-    props.word.value.length === 0
+  return props.word !== undefined &&
+    props.word.text &&
+    props.word.text.length === 0
     ? "*Required"
     : "";
 });
 const play = () => {
   pronunciationService.play({
-    text: props.word.value.text,
+    text: props.word.text,
     langId: langId,
   });
 };
 const onSpellingChange = (input) => {
   emit("change", {
     text: input,
-    description: props.word.value.description,
-    synonyms: props.word.value.synonyms,
-    translation: props.word.value.translation,
+    description: props.word.description,
+    synonyms: props.word.synonyms,
+    translation: props.word.translation,
     groupId: groupId.value,
     langId: langId.value,
   });
 };
 const onDescriptionChange = (input) => {
   emit("change", {
-    text: props.word.valu.text,
+    text: props.word.text,
     description: input,
-    synonyms: props.word.value.synonyms,
-    translation: props.word.value.translation,
+    synonyms: props.word.synonyms,
+    translation: props.word.translation,
     groupId: groupId.value,
     langId: langId.value,
   });
@@ -181,10 +185,10 @@ const onDescriptionChange = (input) => {
 const onSynonymsChange = (input) => {
   synonyms.value = input;
   emit("change", {
-    text: props.word.value.text,
-    description: props.word.value.description,
+    text: props.word.text,
+    description: props.word.description,
     synonyms: input,
-    translation: props.word.value.translation,
+    translation: props.word.translation,
     groupId: groupId.value,
     langId: langId.value,
   });
@@ -192,23 +196,23 @@ const onSynonymsChange = (input) => {
 const onTranslationChange = (input) => {
   translation.value = input;
   emit("change", {
-    text: props.word.value.text,
-    description: props.word.value.description,
-    synonyms: props.word.value.synonyms,
+    text: props.word.text,
+    description: props.word.description,
+    synonyms: props.word.synonyms,
     translation: input,
     groupId: groupId.value,
     langId: langId.value,
   });
 };
 const onSelectGroup = (option) => {
-  group.value = option;
+  Object.assign(group, option);
   selectedGroup.value = option.label;
   groupId.value = option.value;
   emit("change", {
-    text: props.word.value.text,
-    description: props.word.value.description,
-    synonyms: props.word.value.synonyms,
-    translation: props.word.value.translation,
+    text: props.word.text,
+    description: props.word.description,
+    synonyms: props.word.synonyms,
+    translation: props.word.translation,
     groupId: option.value,
     langId: langId.value,
   });
@@ -218,26 +222,26 @@ const onSelectLang = (option) => {
   selectedLang.value = option.label;
   langId.value = option.value;
   emit("change", {
-    text: props.word.value.text,
-    description: props.word.value.description,
-    synonyms: props.word.value.synonyms,
-    translation: props.word.value.translation,
+    text: props.word.text,
+    description: props.word.description,
+    synonyms: props.word.synonyms,
+    translation: props.word.translation,
     groupId: groupId.value,
     langId: option.value,
   });
 };
-const getGroup = async (groupId) => {
-  const group = await getGroupById(groupId);
+const getGroup = async (newGroupId: string) => {
+  const group = await getGroupById(newGroupId);
   if (group) {
     selectedGroup.value = group.name;
-    groupId = group._id;
+    groupId.value = newGroupId;
   }
 };
-const getLang = async (langId) => {
-  const lang = await getLangById(langId);
+const getLang = async (newLangId: string) => {
+  const lang = await getLangById(newLangId);
   if (lang) {
     selectedLang.value = lang.name;
-    langId = lang._id;
+    langId.value = newLangId;
   }
 };
 </script>

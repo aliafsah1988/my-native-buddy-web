@@ -46,6 +46,7 @@ export const useGroupStore = defineStore("group", () => {
   };
   const getGroupById = async (groupId: any) => {
     try {
+      console.log("getGroupById");
       const group = await GroupService.getById(groupId);
       Object.assign(editGroup, group);
       return group;
