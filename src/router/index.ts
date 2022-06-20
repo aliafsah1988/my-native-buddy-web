@@ -55,6 +55,25 @@ const router = createRouter({
       },
       props: true,
     },
+    {
+      path: "/group/add",
+      name: "addGroup",
+      component: () => import("../views/AddGroup/AddGroupView.vue"),
+
+      meta: {
+        public: false,
+      },
+    },
+    {
+      path: "/group/edit/:id",
+      name: "editGroup",
+      component: () => import("../views/AddGroup/AddGroupView.vue"),
+
+      meta: {
+        public: false,
+      },
+      props: true,
+    },
   ],
 });
 

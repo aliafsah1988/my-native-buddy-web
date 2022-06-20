@@ -5,7 +5,7 @@
         :placeholder="'Your Group Here...'"
         :error="nameError"
         @input="onNameChange"
-        :initValue="name"
+        :initValue="group.name"
       />
     </Field>
 
@@ -13,7 +13,7 @@
       <Input
         :placeholder="'Description ...'"
         @input="onDescriptionChange"
-        :initValue="description"
+        :initValue="group.description"
       />
     </Field>
 
@@ -67,17 +67,17 @@ const nameError = () => {
 onMounted(() => {
   getLangs();
 });
-const onNameChange = (value: string) => {
+const onNameChange = (input: string) => {
   emit("change", {
-    name: value,
+    name: input,
     description: props.group.description,
     langId: langId.value,
   });
 };
-const onDescriptionChange = (value: string) => {
+const onDescriptionChange = (input: string) => {
   emit("change", {
     name: props.group.name,
-    description: value,
+    description: input,
     langId: langId.value,
   });
 };
@@ -94,7 +94,7 @@ const getLang = async (langId) => {
   const lang = await getLangById(langId);
   if (lang) {
     selectedLang.value = lang.name;
-    langId.value = lang._id;
+    langId = lang._id;
   }
 };
 watch(

@@ -36,7 +36,6 @@ onBeforeUnmount(() => {
   storeWord.reset();
 });
 const onChange = (word) => {
-  console.log(word);
   storeWord.updateWord(word);
 };
 const save = async () => {

@@ -6,21 +6,20 @@ import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
 
 export const useGroupStore = defineStore("group", () => {
-  const group = reactive<any>(null);
+  let group = reactive<any>({});
   const actionType = ref<string>("");
-  const editGroup = reactive<any>({});
   const groupError = ref<string>("");
   const groupErrorCode = ref<number>(0);
-  const setActionType = async (actionType: any) => {
-    actionType.value = actionType;
+  const setActionType = async (input: string) => {
+    actionType.value = input;
   };
   const updateGroup = async (group: any) => {
     group.value = group;
   };
-  const saveGroup = async (state: any) => {
+  const saveGroup = async () => {
     try {
       const result: any = null;
-      if (state.actionType === "add") {
+      if (actionType.value === "add") {
         result.value = await GroupService.add(
           group.name,
           group.description,
@@ -28,7 +27,7 @@ export const useGroupStore = defineStore("group", () => {
         );
       } else {
         result.value = await GroupService.update(
-          editGroup._id,
+          group._id,
           group.name,
           group.description,
           group.langId
@@ -46,9 +45,9 @@ export const useGroupStore = defineStore("group", () => {
   };
   const getGroupById = async (groupId: any) => {
     try {
-      console.log("getGroupById");
-      const group = await GroupService.getById(groupId);
-      Object.assign(editGroup, group);
+      const result = await GroupService.getById(groupId);
+      console.log(result);
+      Object.assign(group, result);
       return group;
     } catch (e: any) {
       if (e instanceof GroupError) {
@@ -62,10 +61,16 @@ export const useGroupStore = defineStore("group", () => {
     groupError.value = errorMessage;
   };
   const reset = () => {
-    Object.assign(group, null);
+    group = reactive<any>({});
     groupErrorCode.value = 0;
     groupError.value = "";
-    Object.assign(editGroup, undefined);
   };
-  return { getGroupById };
+  return {
+    getGroupById,
+    group,
+    setActionType,
+    reset,
+    updateGroup,
+    saveGroup,
+  };
 });
