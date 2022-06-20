@@ -21,9 +21,9 @@
 </template>
 <script setup lang="ts">
 import { computed, defineProps } from "vue";
-import buttonType from "../../../_old/src/types/buttonType";
-import buttonTheme from "../../../_old/src/types/buttonTheme";
-import buttonSize from "../../../_old/src/types/buttonSize";
+import buttonType from "../../types/ButtonType";
+import buttonTheme from "../../types/ButtonTheme";
+import buttonSize from "../../types/buttonSize";
 import "./style.scss";
 
 const props = defineProps({

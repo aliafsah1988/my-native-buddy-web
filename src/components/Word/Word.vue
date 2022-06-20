@@ -65,7 +65,7 @@
 <script setup lang="ts">
 import { defineProps, ref, computed, onMounted, reactive, watch } from "vue";
 import "./style.scss";
-import buttonType from "../../../_old/src/types/buttonType";
+import buttonType from "../../types/ButtonType";
 import PronunciationService from "../../../_old/src/services/pronunciation.service";
 import Field from "../Form/Field/Field.vue";
 import Input from "../Form/Input/Input.vue";
