@@ -90,16 +90,17 @@ const onSelect = (option) => {
     langId: option.value,
   });
 };
-const getLang = async (langId) => {
-  const lang = await getLangById(langId);
+const getLang = async (id: string): Promise<void> => {
+  const lang = await getLangById(id);
   if (lang) {
     selectedLang.value = lang.name;
-    langId = lang._id;
+    langId.value = lang._id;
   }
 };
 watch(
   () => props.group,
   (group, prevGroup) => {
+    console.log("watch");
     if (langId.value !== group.langId) getLang(group.langId);
   },
   { deep: true }

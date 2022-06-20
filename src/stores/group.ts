@@ -13,8 +13,8 @@ export const useGroupStore = defineStore("group", () => {
   const setActionType = async (input: string) => {
     actionType.value = input;
   };
-  const updateGroup = async (group: any) => {
-    group.value = group;
+  const updateGroup = async (input: any) => {
+    Object.assign(group, input);
   };
   const saveGroup = async () => {
     try {
