@@ -17,35 +17,35 @@ export default {
   props: {
     error: {
       type: String,
-      default: ""
+      default: "",
     },
     initValue: {
       type: String,
-      default: ""
+      default: "",
     },
     placeholder: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   mounted() {
     this.value = this.initValue;
   },
   data() {
     return {
-      value: ""
+      value: "",
     };
   },
   methods: {
     onChange(e) {
       this.$emit("change", e.target.value);
-    }
+    },
   },
   computed: {
-    hasError: function() {
+    hasError: function () {
       return this.error && this.error.length > 0;
-    }
-  }
+    },
+  },
 };
 </script>
 

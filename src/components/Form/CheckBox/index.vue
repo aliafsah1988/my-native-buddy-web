@@ -19,12 +19,12 @@ export default {
   props: {
     initValue: {
       type: Boolean,
-      default: false
+      default: false,
     },
     initError: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   mounted() {
     this.value = this.initValue;
@@ -33,15 +33,15 @@ export default {
   data() {
     return {
       value: false,
-      error: false
+      error: false,
     };
   },
   methods: {
     onChange(e) {
       this.value = e.target.checked;
       this.$emit("change", e.target.checked);
-    }
-  }
+    },
+  },
 };
 </script>
 
