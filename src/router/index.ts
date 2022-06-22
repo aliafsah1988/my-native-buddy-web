@@ -82,6 +82,14 @@ const router = createRouter({
         public: false,
       },
     },
+    {
+      path: "/word",
+      name: "wordList",
+      component: () => import("../views/WordList/WordListView.vue"),
+      meta: {
+        public: false,
+      },
+    },
   ],
 });
 
