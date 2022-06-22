@@ -39,5 +39,5 @@ export const useGroupListStore = defineStore("groupList", () => {
     groupErrorCode.value = errorCode;
     groupError.value = errorMessage;
   };
-  return { groups, getMyGroups };
+  return { groups, getMyGroups, deleteGroup };
 });

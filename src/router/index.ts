@@ -74,6 +74,14 @@ const router = createRouter({
       },
       props: true,
     },
+    {
+      path: "/group",
+      name: "groupList",
+      component: () => import("../views/GroupList/GroupListView.vue"),
+      meta: {
+        public: false,
+      },
+    },
   ],
 });
 
