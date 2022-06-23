@@ -13,8 +13,8 @@ export default {
   name: "Header",
   components: {
     LoggedInUser,
-    Navbar
-  }
+    Navbar,
+  },
 };
 </script>
 

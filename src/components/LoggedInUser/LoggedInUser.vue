@@ -6,8 +6,8 @@
 </template>
 
 <script setup lang="ts">
-import { LoggedInUserService } from "../../_old/src/services/storage.service";
-import { AuthService } from "../../_old/src/services/auth.service";
+import { LoggedInUserService } from "../../../_old/src/services/storage.service";
+import { AuthService } from "../../../_old/src/services/auth.service";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 
