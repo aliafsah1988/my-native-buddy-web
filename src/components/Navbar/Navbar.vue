@@ -10,11 +10,7 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "Navbar"
-};
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
 @import "./style.scss";
