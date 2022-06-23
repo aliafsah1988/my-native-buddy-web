@@ -13,18 +13,18 @@ export default {
   name: "LoggedInUser",
   data() {
     return {
-      email: ""
+      email: "",
     };
   },
   mounted() {
     this.email = LoggedInUserService.getEmail();
   },
   methods: {
-    logout: async function() {
+    logout: async function () {
       await AuthService.logout();
       this.$router.push({ name: "Login" });
-    }
-  }
+    },
+  },
 };
 </script>
 
