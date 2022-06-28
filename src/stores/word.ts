@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
 import { WordService, WordError } from "../../_old/src/services/word.service";
+import { wordService } from "../services/index";
 
 export const useWordStore = defineStore("word", () => {
   let word = reactive<any>({});

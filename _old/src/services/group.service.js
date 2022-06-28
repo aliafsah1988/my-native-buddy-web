@@ -20,7 +20,7 @@ const GroupService = {
    * @returns a boolean
    * @throws GroupError
    **/
-  add: async function(name, description, langId) {
+  add: async function (name, description, langId) {
     try {
       const requestData = {
         method: "post",
@@ -28,8 +28,8 @@ const GroupService = {
         data: {
           name,
           description,
-          langId
-        }
+          langId,
+        },
       };
       const response = await ApiService.customRequest(requestData);
       return response.data && response.data.id;
@@ -43,19 +43,19 @@ const GroupService = {
    * @returns a boolean
    * @throws GroupError
    **/
-  update: async function(groupId, name, description, langId) {
+  update: async function (groupId, name, description, langId) {
     try {
       const requestData = {
         method: "put",
         url: `/group`,
         params: {
-          id: groupId
+          id: groupId,
         },
         data: {
           name,
           description,
-          langId
-        }
+          langId,
+        },
       };
       const response = await ApiService.customRequest(requestData);
       return response.data;
@@ -69,14 +69,14 @@ const GroupService = {
    * @returns a group
    * @throws GroupError
    **/
-  getById: async function(groupId) {
+  getById: async function (groupId) {
     try {
       const requestData = {
         method: "get",
         url: `/group`,
         params: {
-          id: groupId
-        }
+          id: groupId,
+        },
       };
       const response = await ApiService.customRequest(requestData);
       return response.data;
@@ -90,11 +90,11 @@ const GroupService = {
    * @returns a list of groups
    * @throws GroupError
    **/
-  getMyGroups: async function() {
+  getMyGroups: async function () {
     try {
       const requestData = {
         method: "get",
-        url: `/group/user`
+        url: `/group/user`,
       };
       const response = await ApiService.customRequest(requestData);
       return response.data;
@@ -108,21 +108,21 @@ const GroupService = {
    * @returns a Boolean
    * @throws GroupError
    **/
-  deleteById: async function(groupId) {
+  deleteById: async function (groupId) {
     try {
       const requestData = {
         method: "delete",
         url: `/group`,
         params: {
-          id: groupId
-        }
+          id: groupId,
+        },
       };
       const response = await ApiService.customRequest(requestData);
       return response.data;
     } catch (error) {
       throw new GroupError(error.response.status, error.response.data.detail);
     }
-  }
+  },
 };
 
 export default GroupService;

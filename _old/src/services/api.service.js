@@ -52,10 +52,10 @@ const ApiService = {
 
   mount401Interceptor() {
     this._401interceptor = axios.interceptors.response.use(
-      response => {
+      (response) => {
         return response;
       },
-      async error => {
+      async (error) => {
         if (error.request.status === 401) {
           // refresh token or logout
           TokenService.removeToken();
@@ -70,7 +70,7 @@ const ApiService = {
   unmount401Interceptor() {
     // Eject the interceptor
     axios.interceptors.response.eject(this._401interceptor);
-  }
+  },
 };
 
 export default ApiService;

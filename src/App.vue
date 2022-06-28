@@ -2,8 +2,6 @@
   <div id="app">
     <Header />
     <RouterView />
-
-    <router-view :key="$route.fullPath" />
     <notifications group="success" />
   </div>
 </template>
@@ -14,6 +12,5 @@ import Header from "../src/components/Header/Header.vue";
 
 //
 <style lang="scss">
-// @import "./assets/sass/index.scss";
-//
+@import "./assets/sass/index.scss";
 </style>

@@ -43,13 +43,14 @@ onMounted(async () => {
 const onDelete = (id) => {
   readyToDelete.value = id;
   //   this.$modal.show("delete");
+  storeGroupList.deleteGroup(readyToDelete.value);
 };
 const close = () => {
   // this.$modal.hide("delete");
   readyToDelete.value = undefined;
 };
 const onYes = async () => {
-  await storeGroupList.deleteGroup(readyToDelete);
+  await storeGroupList.deleteGroup(readyToDelete.value);
   close();
 };
 </script>
