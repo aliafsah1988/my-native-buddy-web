@@ -1,4 +1,4 @@
-import ApiService from "./ApiService";
+import type ApiService from "./ApiService";
 
 class GroupService {
   private apiService: ApiService;
@@ -33,18 +33,13 @@ class GroupService {
     description: string,
     langId: string
   ): Promise<any> {
-    const respnse = await this.apiService.request(
-      "POST",
-      "/group",
-      {},
-      {
-        body: {
-          name,
-          description,
-          langId,
-        },
-      }
-    );
+    const respnse = await this.apiService.request("POST", "/group", undefined, {
+      body: {
+        name,
+        description,
+        langId,
+      },
+    });
     return respnse.body;
   }
   public async update(

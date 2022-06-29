@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
-import { LangService, LangError } from "../../_old/src/services/lang.service";
+import { langService } from "../services/index";
 
 export const useLangStore = defineStore("lang", () => {
   const langs = reactive<any[]>([]);
@@ -8,31 +8,13 @@ export const useLangStore = defineStore("lang", () => {
   const langError = ref<string>("");
 
   const getLangs = async () => {
-    try {
-      Object.assign(langs, []);
-      langErrorCode.value = 0;
-      langError.value = "";
-      Object.assign(langs, await LangService.getLangs());
-    } catch (e: any) {
-      if (e instanceof LangError) {
-        fail(e.errorCode, e.message);
-      }
-      return false;
-    }
+    Object.assign(langs, []);
+    langErrorCode.value = 0;
+    langError.value = "";
+    Object.assign(langs, await langService.getLangs());
   };
   const getLangById = async (langId: any) => {
-    try {
-      return await LangService.getLangById(langId);
-    } catch (e: any) {
-      if (e instanceof LangError) {
-        fail(e.errorCode, e.message);
-      }
-      return false;
-    }
-  };
-  const fail = (errorCode: number, errorMessage: string) => {
-    langErrorCode.value = errorCode;
-    langError.value = errorMessage;
+    return await langService.getLangById(langId);
   };
 
   return { langs, getLangs, getLangById };

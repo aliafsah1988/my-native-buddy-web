@@ -20,7 +20,7 @@ const WordService = {
    * @returns a boolean
    * @throws WordError
    **/
-  add: async function(
+  add: async function (
     text,
     description,
     synonyms,
@@ -38,8 +38,8 @@ const WordService = {
           synonyms,
           translation,
           groupId,
-          langId
-        }
+          langId,
+        },
       };
       const response = await ApiService.customRequest(requestData);
       return response.data && response.data.id;
@@ -53,7 +53,7 @@ const WordService = {
    * @returns a boolean
    * @throws WordError
    **/
-  update: async function(
+  update: async function (
     wordId,
     text,
     description,
@@ -67,7 +67,7 @@ const WordService = {
         method: "put",
         url: `/word`,
         params: {
-          id: wordId
+          id: wordId,
         },
         data: {
           text,
@@ -75,8 +75,8 @@ const WordService = {
           synonyms,
           translation,
           groupId,
-          langId
-        }
+          langId,
+        },
       };
       const response = await ApiService.customRequest(requestData);
       return response.data;
@@ -90,14 +90,14 @@ const WordService = {
    * @returns a word
    * @throws WordError
    **/
-  getById: async function(wordId) {
+  getById: async function (wordId) {
     try {
       const requestData = {
         method: "get",
         url: `/word`,
         params: {
-          id: wordId
-        }
+          id: wordId,
+        },
       };
       const response = await ApiService.customRequest(requestData);
       return response.data;
@@ -111,11 +111,11 @@ const WordService = {
    * @returns a list of words
    * @throws WordError
    **/
-  getMyWords: async function() {
+  getMyWords: async function () {
     try {
       const requestData = {
         method: "get",
-        url: `/word/user`
+        url: `/word/user`,
       };
       const response = await ApiService.customRequest(requestData);
       return response.data;
@@ -129,21 +129,21 @@ const WordService = {
    * @returns a Boolean
    * @throws WordError
    **/
-  deleteById: async function(wordId) {
+  deleteById: async function (wordId) {
     try {
       const requestData = {
         method: "delete",
         url: `/word`,
         params: {
-          id: wordId
-        }
+          id: wordId,
+        },
       };
       const response = await ApiService.customRequest(requestData);
       return response.data;
     } catch (error) {
       throw new WordError(error.response.status, error.response.data.detail);
     }
-  }
+  },
 };
 
 export default WordService;
