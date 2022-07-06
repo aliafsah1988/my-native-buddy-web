@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import AuthService from "../../../_old/src/services/auth.service";
+import { authService } from "../../services/index";
 import { useRouter } from "vue-router";
 
 const email = ref<string>("");
@@ -30,9 +30,9 @@ const password = ref<string>("");
 const router = useRouter();
 
 const login = async () => {
-  const result = await AuthService.register(email.value, password.value);
-  if (result && result.length > 0) {
-    router.push({ name: "Practice" });
+  const result = await authService.register(email.value, password.value);
+  if (result !== undefined && result.length > 0) {
+    router.push({ name: "practiceGroup" });
   }
 };
 </script>

@@ -11,16 +11,14 @@
 </template>
 
 <script setup lang="ts">
-import { useGroupsStore } from "../../stores/groups";
-import { GroupService } from "../../../_old/src/services/group.service";
-import { onMounted } from "@vue/runtime-core";
+import { groupService } from "../../services/index";
+import { onMounted, reactive } from "@vue/runtime-core";
+
+const groups = reactive<any[]>([]);
 
 onMounted(async () => {
-  const groups = await GroupService.getMyGroups();
-  setGroups(groups);
+  Object.assign(groups, await groupService.getMyGroups());
 });
-
-const { groups, setGroups } = useGroupsStore();
 </script>
 
 <style lang="scss" scoped>

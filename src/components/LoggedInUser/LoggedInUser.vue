@@ -6,8 +6,9 @@
 </template>
 
 <script setup lang="ts">
-import { LoggedInUserService } from "../../../_old/src/services/storage.service";
-import { AuthService } from "../../../_old/src/services/auth.service";
+import { LoggedInUserService } from "../../services/storage.service";
+import { authService } from "../../services/index";
+
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 
@@ -18,8 +19,8 @@ onMounted(() => {
   email.value = LoggedInUserService.getEmail();
 });
 const logout = async () => {
-  await AuthService.logout();
-  router.push({ name: "Login" });
+  await authService.logout();
+  router.push({ name: "login" });
 };
 </script>
 
