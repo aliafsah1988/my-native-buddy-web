@@ -90,6 +90,15 @@ const router = createRouter({
         public: false,
       },
     },
+    {
+      path: "/group/:groupId/word",
+      name: "wordListGroup",
+      component: () => import("../views/WordListGroup/WordListGroupView.vue"),
+      meta: {
+        public: false,
+      },
+      props: true,
+    },
   ],
 });
 

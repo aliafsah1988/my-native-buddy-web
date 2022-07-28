@@ -7,11 +7,11 @@ class WordService {
     this.apiService = apiService;
   }
 
-  public async getMyWords(): Promise<any> {
+  public async getMyWords(query?: { groupId?: string }): Promise<any> {
     const respnse = await this.apiService.request(
       "GET",
       "/word/user",
-      undefined,
+      query,
       {}
     );
     return respnse.body;

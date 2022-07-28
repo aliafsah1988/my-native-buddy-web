@@ -26,6 +26,7 @@
             src="../../assets/image/delete.png"
             @click="onDelete(group._id)"
           />
+          <button @click="showWord(group._id)">Show word</button>
         </td>
       </tr>
     </table>
@@ -35,6 +36,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useGroupListStore } from "../../stores/groupList";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const storeGroupList = useGroupListStore();
 const readyToDelete = ref<string>("");
 onMounted(async () => {
@@ -52,6 +55,9 @@ const close = () => {
 const onYes = async () => {
   await storeGroupList.deleteGroup(readyToDelete.value);
   close();
+};
+const showWord = (id: string) => {
+  router.push({ name: "wordListGroup", params: { groupId: id } });
 };
 </script>
 
