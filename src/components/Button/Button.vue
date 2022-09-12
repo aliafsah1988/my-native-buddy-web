@@ -23,7 +23,7 @@
 import { computed, defineProps } from "vue";
 import buttonType from "../../types/ButtonType";
 import buttonTheme from "../../types/ButtonTheme";
-import buttonSize from "../../types/buttonSize";
+import buttonSize from "../../types/ButtonSize";
 import "./style.scss";
 
 const props = defineProps({
