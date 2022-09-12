@@ -6,7 +6,7 @@ const ApiService = {
   _401interceptor: null,
 
   init() {
-    axios.defaults.baseURL = config.BASE_URL;
+    axios.defaults.baseURL = import.meta.env.VITE_SERVER_BASE_URL;
     this.mount401Interceptor();
   },
 

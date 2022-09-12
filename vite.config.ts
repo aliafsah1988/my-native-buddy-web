@@ -1,7 +1,8 @@
 import { fileURLToPath, URL } from "url";
-
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
+
+process.env = { ...process.env, ...loadEnv("development", process.cwd()) };
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,7 +16,7 @@ export default defineConfig({
     port: 5000,
     proxy: {
       "^/-/.*": {
-        target: "http://localhost:3000/api",
+        target: process.env.VITE_PROXY_URL,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/-/, ""),
       },
