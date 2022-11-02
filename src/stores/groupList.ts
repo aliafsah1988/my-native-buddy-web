@@ -7,6 +7,10 @@ export const useGroupListStore = defineStore("groupList", () => {
   const groupErrorCode = ref<number | null>(null);
   const groupError = ref<string>("");
 
+  const getGroupById = async (groupId: any) => {
+    return groups.find((group) => group._id === groupId);
+  };
+
   const getMyGroups = async () => {
     Object.assign(groups, []);
     groupErrorCode.value = 0;
@@ -20,5 +24,5 @@ export const useGroupListStore = defineStore("groupList", () => {
     }
   };
 
-  return { groups, getMyGroups, deleteGroup };
+  return { groups, getMyGroups, deleteGroup, getGroupById };
 });
