@@ -36,6 +36,7 @@ export const useGroupStore = defineStore("group", () => {
       reset();
     }
   };
+  // TODO remvoe this and use the one inside grouplist store instead!
   const getGroupById = async (groupId: any) => {
     const result = await groupService.getById(groupId);
     console.log(result);

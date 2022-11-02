@@ -73,7 +73,6 @@ import Select from "../Form/Select/Select.vue";
 import Button from "../Button/Button.vue";
 import { useGroupListStore } from "../../stores/groupList";
 import { useLangStore } from "../../stores/lang";
-import { useGroupStore } from "../../stores/group";
 
 const emit = defineEmits(["change"]);
 
@@ -90,9 +89,9 @@ const props = defineProps({
     default: false,
   },
 });
-const { groups, getMyGroups } = useGroupListStore();
+const { groups, getMyGroups, getGroupById } = useGroupListStore();
 const { langs, getLangById, getLangs } = useLangStore();
-const { getGroupById } = useGroupStore();
+
 watch(
   () => props.word,
   (word, prevWord) => {
