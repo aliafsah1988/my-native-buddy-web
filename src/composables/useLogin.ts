@@ -25,6 +25,7 @@ export function useLogin(): IUseLogin {
       }
       error.value = "Username or password is wrong!";
     } catch (err) {
+      console.log(err);
       error.value = "Username or password is wrong!";
     }
   };
