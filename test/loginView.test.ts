@@ -1,57 +1,67 @@
-import { describe, expect, it, vi } from "vitest";
-import { mount, shallowMount } from "@vue/test-utils";
-import LoginView from "../src/views/Login/LoginView.vue";
-import { authService } from "../src/services/index";
+import { describe, expect, it, vi, afterEach, beforeEach } from "vitest";
+import { mount } from "@vue/test-utils";
+import LoginView from "@/views/Login/LoginView.vue";
+
+import { ref, type Ref } from "vue";
+
+const mockedLogin = vi.fn();
+const error: Ref<string | undefined> = ref(undefined);
+mockedLogin.mockImplementation(() => {
+  error.value = "some error";
+});
 
 describe("LoginView", () => {
-  const authServiceSpy = vi.spyOn(authService, "login");
+  beforeEach(() => {
+    vi.mock("@/composables/useLogin", () => ({
+      __esModule: true,
+      useLogin: function () {
+        return {
+          error,
+          login: mockedLogin,
+        };
+      },
+    }));
+  });
 
-  it("call the auth api after login click", async () => {
-    vi.mocked(authService.login).mockReturnValueOnce(
-      new Promise((resolve) => resolve(""))
-    );
-
-    expect(LoginView).toBeTruthy();
-    const wrapper = shallowMount(LoginView, { stubs: ["router-link"] });
-
-    await wrapper.get("button").trigger("click");
-    expect(authServiceSpy).toBeCalledTimes(1);
+  afterEach(() => {
+    vi.clearAllMocks();
   });
 
   it("hide error message by default", async () => {
     expect(LoginView).toBeTruthy();
-    const wrapper = mount(LoginView, {});
+
+    const wrapper = mount(LoginView, {
+      global: {
+        stubs: ["router-link", "router-view"],
+      },
+    });
 
     expect(wrapper.find(".error").exists()).toBe(false);
   });
 
   it("show error message when login failed", async () => {
-    vi.mocked(authService.login).mockReturnValueOnce(
-      new Promise((resolve, reject) => reject())
-    );
-
     expect(LoginView).toBeTruthy();
-    const wrapper = shallowMount(LoginView, { stubs: ["router-link"] });
+
+    const wrapper = mount(LoginView, { stubs: ["router-link"] });
 
     await wrapper.get("button").trigger("click");
+    await wrapper.vm.$nextTick();
 
-    wrapper.vm.$nextTick(() => {
-      expect(wrapper.find(".error").exists()).toBe(true);
-    });
+    expect(wrapper.find(".error").exists()).toBe(true);
   });
 
   it("hide error message when login succeed", async () => {
-    vi.mocked(authService.login).mockReturnValueOnce(
-      new Promise((resolve) => resolve("token"))
-    );
-
     expect(LoginView).toBeTruthy();
-    const wrapper = shallowMount(LoginView, { stubs: ["router-link"] });
+
+    mockedLogin.mockImplementation(() => {
+      error.value = undefined;
+    });
+
+    const wrapper = mount(LoginView, { stubs: ["router-link"] });
 
     await wrapper.get("button").trigger("click");
+    await wrapper.vm.$nextTick();
 
-    wrapper.vm.$nextTick(() => {
-      expect(wrapper.find(".error").exists()).toBe(false);
-    });
+    expect(wrapper.find(".error").exists()).toBe(false);
   });
 });
