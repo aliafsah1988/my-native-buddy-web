@@ -13,6 +13,7 @@
         <div class="login">
           <button @click="login">Login</button>
         </div>
+        <div class="error" v-if="error !== undefined">{{ error }}</div>
         <span>
           If you don't have an account please
           <router-link :to="{ name: 'register' }">Register</router-link>
@@ -24,22 +25,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-// import AuthService from "../../../_old/src/services/auth.service";
-import { authService } from "../../services/index";
+import { useLogin } from "@/composables/useLogin";
 
-import { useRouter } from "vue-router";
-
-const email = ref<string>("");
-const password = ref<string>("");
-const router = useRouter();
-
-const login = async () => {
-  const result = await authService.login(email.value, password.value);
-  if (result !== undefined && result.length > 0) {
-    router.push({ name: "practiceGroup" });
-  }
-};
+const { email, password, login, error } = useLogin();
 </script>
 
 <style lang="scss" scoped>
