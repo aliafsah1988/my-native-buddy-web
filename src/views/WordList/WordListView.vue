@@ -1,6 +1,10 @@
 <template>
   <div>
-    <ShowWord :words="storeWordList.words" />
+    <ShowWord
+      :words="word.words"
+      @delete="word.deleteWord"
+      @next="word.nextPage"
+    />
   </div>
 </template>
 
@@ -8,10 +12,11 @@
 import ShowWord from "../../components/ShowWord/ShowWord.vue";
 
 import { onMounted } from "vue";
-import { useWordListStore } from "../../stores/wordList";
-const storeWordList = useWordListStore();
+import { useWord } from "../../composables/useWord";
+
+const word = useWord();
 
 onMounted(async () => {
-  await storeWordList.getMyWords();
+  await word.getMyWords();
 });
 </script>

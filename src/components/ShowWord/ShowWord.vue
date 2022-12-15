@@ -19,12 +19,13 @@
           </router-link>
           <img
             src="../../assets/image/delete.png"
-            @click="storeWordList.deleteWord(word._id)"
+            @click="emit('delete', word._id)"
           />
         </td>
       </tr>
     </table>
   </div>
+  <button @click="emit('next')">Next</button>
 </template>
 
 <script setup lang="ts">
@@ -36,6 +37,8 @@ const props = defineProps({
     },
   },
 });
+
+const emit = defineEmits(["delete", "next"]);
 </script>
 
 <style lang="scss" scoped>
