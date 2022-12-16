@@ -25,7 +25,6 @@
       </tr>
     </table>
   </div>
-  <button @click="emit('next')">Next</button>
 </template>
 
 <script setup lang="ts">
@@ -38,7 +37,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["delete", "next"]);
+const emit = defineEmits(["delete"]);
 </script>
 
 <style lang="scss" scoped>

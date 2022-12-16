@@ -1,33 +1,38 @@
-import { reactive, ref } from "vue";
+import { reactive, ref, type Ref } from "vue";
 import { wordService } from "../services/index";
+import type IWordDbModel from "../types/IWordDbModel";
 
 const LIMIT = 10;
 
 interface IUseWord {
   words: any[];
+  totalCount: Ref<number>;
   getMyWords: () => void;
-  nextPage: () => void;
+  onPageChange: (page: number) => void;
   deleteWord: (wordId: any) => void;
 }
 
 export function useWord(): IUseWord {
   const words = reactive<any[]>([]);
-  let skip = 0;
-  let totalCount = -1;
+  const totalCount = ref(0);
 
-  const getMyWords = async () => {
-    const { total, data } = await wordService.getMyWords({
-      limit: LIMIT,
-      skip: skip,
+  const getMyWords = async (skip = 0, limit: number = LIMIT) => {
+    const { total, data }: { total: number; data: IWordDbModel[] } =
+      await wordService.getMyWords({
+        limit: limit,
+        skip: skip,
+      });
+    totalCount.value = total;
+    words.splice(0, words.length);
+    data.forEach((word: IWordDbModel) => {
+      words.push(word);
     });
-    totalCount = total;
-    Object.assign(words, data);
   };
 
-  const nextPage = async () => {
-    if (totalCount - LIMIT > skip) {
-      skip += LIMIT;
-      await getMyWords();
+  const onPageChange = async (page: number) => {
+    const skip = (page - 1) * LIMIT;
+    if (totalCount.value > skip) {
+      await getMyWords(skip);
     }
   };
 
@@ -40,8 +45,9 @@ export function useWord(): IUseWord {
 
   return {
     words,
+    totalCount,
     getMyWords,
-    nextPage,
+    onPageChange,
     deleteWord,
   };
 }
