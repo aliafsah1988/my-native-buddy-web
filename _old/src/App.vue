@@ -2,7 +2,7 @@
   <div id="app">
     <Header />
     <router-view :key="$route.fullPath" />
-    <notifications group="success" />
+    <Notifications group="success" />
   </div>
 </template>
 
@@ -10,7 +10,7 @@
 import Header from "./components/Header";
 export default {
   name: "App",
-  components: { Header }
+  components: { Header },
 };
 </script>
 
