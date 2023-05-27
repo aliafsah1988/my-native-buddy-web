@@ -14,7 +14,7 @@ export default defineConfig({
     },
   },
   server: {
-    port: 5000,
+    port: 8080,
     proxy: {
       "^/-/.*": {
         target: process.env.VITE_PROXY_URL,

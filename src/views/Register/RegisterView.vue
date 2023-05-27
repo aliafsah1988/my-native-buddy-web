@@ -7,7 +7,7 @@
       </div>
       <div class="register-container__box__item">
         <label for="name">Password</label>
-        <input v-model="password" placeholder="Password" />
+        <input v-model="password" type="password" placeholder="Password" />
       </div>
       <div class="register">
         <button @click="login">Create Account</button>

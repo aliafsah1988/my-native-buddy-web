@@ -8,7 +8,7 @@
         </div>
         <div class="login-container__box__item">
           <label for="name">Password</label>
-          <input v-model="password" placeholder="Password" />
+          <input v-model="password" type="password" placeholder="Password" />
         </div>
         <div class="login">
           <button @click="login">Login</button>

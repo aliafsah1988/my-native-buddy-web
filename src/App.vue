@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header />
+    <Header v-if="isLoggedIn" />
     <RouterView />
     <notifications group="success" />
   </div>
@@ -8,9 +8,13 @@
 
 <script setup lang="ts">
 import Header from "../src/components/Header/Header.vue";
+import { useUser } from "./composables/useUser";
+import { useUserStore } from "./stores/user";
+
+useUser();
+const { isLoggedIn } = useUserStore();
 </script>
 
-//
 <style lang="scss">
 @import "./assets/sass/index.scss";
 </style>

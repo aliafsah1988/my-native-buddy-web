@@ -1,5 +1,5 @@
 import type ApiService from "./ApiService";
-import { TokenService, LoggedInUserService } from "./storage.service";
+import { useUserStore } from "@/stores/user";
 
 class AuthService {
   private readonly _apiService: ApiService;
@@ -21,12 +21,13 @@ class AuthService {
       }
     );
 
-    TokenService.saveToken(result.body["x-access-token"]);
+    const { setToken } = useUserStore();
+    setToken(result.body["x-access-token"]);
     return result.body["x-access-token"];
   }
   async logout() {
-    TokenService.removeToken();
-    LoggedInUserService.removeEmail();
+    const { logout } = useUserStore();
+    logout();
   }
   async register(email: string, password: string) {
     const result = await this._apiService.request(
@@ -41,7 +42,9 @@ class AuthService {
       }
     );
 
-    TokenService.saveToken(result.body["x-access-token"]);
+    const { setToken } = useUserStore();
+
+    setToken(result.body["x-access-token"]);
     return result.body["x-access-token"];
   }
 }
